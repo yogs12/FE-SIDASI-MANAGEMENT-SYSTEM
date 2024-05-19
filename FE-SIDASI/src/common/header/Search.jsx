@@ -34,8 +34,8 @@ const Search = ({ CartItem }) => {
               {showProfile && (
                 <div className='profile-dropdown'>
                   <div className='profile-menu'>
-                    <Link to='/profile'>Profile</Link>
-                    <button onClick={handleLogout}>Logout</button>
+                    <Link to='/profile'>Profil</Link>
+                    <button onClick={handleLogout}>Keluar</button>
                   </div>
                 </div>
               )}

@@ -12,9 +12,9 @@ const Pages = ({ productItems, addToCart, CartItem, shopItems }) => {
   return (
     <>
       <Home CartItem={CartItem} />
-      <TopCate />
+      {/* <TopCate />
       <NewArrivals productItems={productItems} addToCart={addToCart} />
-      <Discount productItems={productItems} addToCart={addToCart} />
+      <Discount productItems={productItems} addToCart={addToCart} /> */}
       <Shop shopItems={shopItems} addToCart={addToCart} />
       <Annocument />
       <Wrapper />
