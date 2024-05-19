@@ -3,7 +3,7 @@ import logo from "../../components/assets/images/logo_2.png";
 import { Link } from "react-router-dom";
 import "./Search.css"; 
 
-const Search = ({ CartItem }) => {
+const Search = ({ cartItems }) => {
   const [showProfile, setShowProfile] = useState(false);
 
   const toggleProfile = () => {
@@ -43,7 +43,8 @@ const Search = ({ CartItem }) => {
             <div className='cart'>
               <Link to='/cart'>
                 <i className='fa fa-shopping-bag icon-circle'></i>
-                <span>{CartItem && CartItem.length ? CartItem.length : 0}</span>
+                {/* Tambahkan span untuk menampilkan jumlah produk */}
+                <span className="cart-item-count">{cartItems && cartItems.length ? cartItems.reduce((total, item) => total + item.qty, 0) : 0}</span>
               </Link>
             </div>
           </div>

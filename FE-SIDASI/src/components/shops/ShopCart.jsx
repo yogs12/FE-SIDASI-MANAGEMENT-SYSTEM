@@ -1,27 +1,28 @@
 import React, { useState } from "react";
 
 const ShopCart = ({ shopItems, addToCart }) => {
-  const [count, setCount] = useState(0);
-  const increment = () => {
-    setCount(count + 1);
+  const [cartCount, setCartCount] = useState(0); // State untuk melacak jumlah produk di keranjang
+
+  // Fungsi untuk menambah item ke keranjang
+  const handleAddToCart = (item) => {
+    addToCart(item);
+    setCartCount(cartCount + 1); // Menambahkan satu ke jumlah produk di keranjang
   };
 
   return (
     <>
       {shopItems.map((shopItem, index) => {
-        // Tentukan warna teks berdasarkan ketersediaan stok
         const textColor = shopItem.stok > 0 ? 'green' : 'red';
 
         return (
           <div className='box' key={index}>
             <div className='product mtop'>
               <div className='img'>
-                {/* Ganti className dan tentukan warna berdasarkan stok */}
                 <span className={`info ${textColor}`}>{shopItem.info}</span>
                 <img src={shopItem.cover} alt='' />
                 <div className='product-like'>
-                  <label>{count}</label> <br />
-                  <i className='fa-regular fa-heart' onClick={increment}></i>
+                  <label>{/* Tidak perlu menampilkan jumlah di sini */}</label> <br />
+                  <i className='fa-regular fa-heart'></i>
                 </div>
               </div>
               <div className='product-details'>
@@ -31,7 +32,8 @@ const ShopCart = ({ shopItems, addToCart }) => {
                 </div>
                 <div className='price'>
                   <h4>Rp.{shopItem.price}</h4>
-                  <button onClick={() => addToCart(shopItem)}>
+                  {/* Mengubah onClick pada button menjadi handleAddToCart */}
+                  <button onClick={() => handleAddToCart(shopItem)}>
                     <i className='fa fa-plus'></i>
                   </button>
                 </div>

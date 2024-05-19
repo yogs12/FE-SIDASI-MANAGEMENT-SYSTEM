@@ -89,4 +89,46 @@
     margin-top: 30px;
     height: 130px;
   }
-  
+  /* Additional CSS for admin information and screenshot submission */
+.admin-info {
+  background-color: #f6f9fc;
+  padding: 20px;
+  margin-top: 30px;
+}
+
+.admin-info h2 {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.admin-info p {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.admin-info form {
+  margin-top: 20px;
+}
+
+.admin-info label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.admin-info input[type="file"] {
+  margin-bottom: 10px;
+}
+
+.admin-info button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.admin-info button:hover {
+  background-color: #0056b3;
+}
