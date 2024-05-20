@@ -23,10 +23,10 @@ const Shop = ({ addToCart }) => {
           <div className='contentWidth'>
             <div className='heading d_flex'>
               <div className='heading-left row  f_flex'>
-                <h2>Semua Product</h2>
+                <h2>Semua Produk</h2>
               </div>
               <div className='heading-right row '>
-                <span>View all</span>
+                <span>Lihat Semua</span>
                 <i className='fa-solid fa-caret-right'></i>
               </div>
             </div>

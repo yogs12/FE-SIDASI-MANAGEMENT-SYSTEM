@@ -15,7 +15,7 @@ const Cart = ({ cartItems, addToCart, decreaseQty }) => {
         <div className="container d_flex">
           {/* Cart details */}
           <div className="cart-details">
-            {cartItems.length === 0 && <h1 className="no-items product">No Items are added in Cart</h1>}
+            {cartItems.length === 0 && <h1 className="no-items product">Tidak ada pesanan</h1>}
             {cartItems.map((item) => {
               const productQty = item.price * item.qty;
               return (
@@ -53,7 +53,7 @@ const Cart = ({ cartItems, addToCart, decreaseQty }) => {
           {/* Cart summary and admin information */}
           <div className="cart-summary">
             <div className="cart-total product">
-              <h2>Cart Summary</h2>
+              <h2>Total Pembayaran</h2>
               <div className="d_flex">
                 <h4>Total Price :</h4>
                 <h3>Rp.{cartItems.length === 0 ? '0.000' : totalPrice}.000</h3>
@@ -62,12 +62,12 @@ const Cart = ({ cartItems, addToCart, decreaseQty }) => {
 
             {/* Admin information */}
             <div className="admin-info">
-              <h2>Admin Information</h2>
+              <h2>Informasi Pembayaran</h2>
               <p>Nomor Rekening: XXXXXXXX</p>
               <form onSubmit={handleSubmit}>
                 <label htmlFor="screenshot">Screenshot:</label>
                 <input type="file" id="screenshot" name="screenshot" accept="image/*" required />
-                <button type="submit">Submit</button>
+                <button type="submit">Kirim</button>
               </form>
             </div>
           </div>

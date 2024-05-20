@@ -29,7 +29,7 @@ const Sdata = {
     },
     {
       id: 10,
-      cover: "./images/shops/beras.jpg",
+      cover: "./images/shops/Beras.jpg",
       name: "Beras",
       price: "348.500",
       info: "Tersedia",

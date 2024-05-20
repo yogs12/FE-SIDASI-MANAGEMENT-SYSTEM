@@ -5,27 +5,27 @@ const Catg = ({ onSelectCategory }) => {
 
   const data = [
     {
-      cateImg: "./images/category/cat-1.png",
+      cateImg: "./images/category/cart_1.png",
       cateName: "Bahan Baku",
     },
     {
-      cateImg: "./images/category/cat-2.png",
+      cateImg: "./images/category/cart_2.png",
       cateName: "Makanan",
     },
     {
-      cateImg: "./images/category/cat-2.png",
+      cateImg: "./images/category/cart_3.png",
       cateName: "Minuman",
     },
     {
-      cateImg: "./images/category/cat-1.png",
+      cateImg: "./images/category/cart_4.png",
       cateName: "Kosmetik",
     },
     {
-      cateImg: "./images/category/cat-2.png",
+      cateImg: "./images/category/cart_5.png",
       cateName: "Barang Unik",
     },
     {
-      cateImg: "./images/category/cat-1.png",
+      cateImg: "./images/category/cart_6.png",
       cateName: "Elektronik",
     },
   ];
@@ -39,8 +39,8 @@ const Catg = ({ onSelectCategory }) => {
     <>
       <div className='category'>
         <div className='chead d_flex'>
-          <h1>Category </h1>
-          <h1>Shops </h1>
+          <h1>Kategori </h1>
+          <h1>Toko </h1>
         </div>
         {data.map((value, index) => {
           return (

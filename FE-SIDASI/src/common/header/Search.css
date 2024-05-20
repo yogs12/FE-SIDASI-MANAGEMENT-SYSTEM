@@ -1,57 +1,87 @@
-import React, { useState } from "react";
-import logo from "../../components/assets/images/logo_2.png";
-import { Link } from "react-router-dom";
-import "./Search.css"; 
+/* Search.css */
 
-const Search = ({ cartItems }) => {
-  const [showProfile, setShowProfile] = useState(false);
-
-  const toggleProfile = () => {
-    setShowProfile(!showProfile);
-  };
-
-  const handleLogout = () => {
-    console.log("Logout berhasil");
-  };
-
-  return (
-    <>
-      <section className='search'>
-        <div className='container c_flex'>
-          <div className='logo width'>
-            <img src={logo} alt='' />
-          </div>
-
-          <div className='search-box f_flex'>
-            <i className='fa fa-search'></i>
-            <input type='text' placeholder='Search and hit enter...' />
-            <span>All Category</span>
-          </div>
-
-          <div className='icon f_flex width'>
-            <div className='profile-container'>
-              <i className='fa fa-user icon-circle' onClick={toggleProfile}></i>
-              {showProfile && (
-                <div className='profile-dropdown'>
-                  <div className='profile-menu'>
-                    <Link to='/profile'>Profil</Link>
-                    <button onClick={handleLogout}>Keluar</button>
-                  </div>
-                </div>
-              )}
-            </div>
-            <div className='cart'>
-              <Link to='/cart'>
-                <i className='fa fa-shopping-bag icon-circle'></i>
-                {/* Tambahkan span untuk menampilkan jumlah produk */}
-                <span className="cart-item-count">{cartItems && cartItems.length ? cartItems.reduce((total, item) => total + item.qty, 0) : 0}</span>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-    </>
-  );
-};
-
-export default Search;
+.profile-container {
+    position: relative;
+  }
+  
+  .profile-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+  }
+  
+  .profile-menu {
+    padding: 10px;
+  }
+  
+  .profile-menu a {
+    display: block;
+    padding: 8px 0;
+    text-decoration: none;
+    color: #333;
+  }
+  
+  .profile-menu button {
+    display: block;
+    width: 100%;
+    padding: 8px 0;
+    background-color: transparent;
+    border: none;
+    text-align: left;
+    color: #333;
+    cursor: pointer;
+  }
+  
+  .profile-menu button:hover {
+    background-color: #f5f5f5;
+  }
+  
+  .profile-container {
+    position: relative;
+  }
+  
+  .profile-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #fff;
+    border: 1px solid #ddd; /* Menambahkan border pada dropdown */
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    padding: 5px; /* Menambahkan padding pada dropdown */
+  }
+  
+  .profile-menu {
+    padding: 10px;
+  }
+  
+  .profile-menu a {
+    display: block;
+    padding: 8px 0;
+    text-decoration: none;
+    color: #333;
+  }
+  
+  .profile-menu button {
+    display: block;
+    width: 100%;
+    padding: 8px 0;
+    background-color: transparent;
+    border: none;
+    text-align: left;
+    color: #333;
+    cursor: pointer;
+  }
+  
+  .profile-menu button:hover {
+    background-color: #f5f5f5;
+  }
+  
+  
+  

@@ -24,8 +24,8 @@ const Search = ({ cartItems }) => {
 
           <div className='search-box f_flex'>
             <i className='fa fa-search'></i>
-            <input type='text' placeholder='Search and hit enter...' />
-            <span>All Category</span>
+            <input type='text' placeholder='Cari yang anda inginkan' />
+            <span>kategori</span>
           </div>
 
           <div className='icon f_flex width'>

@@ -60,3 +60,15 @@
 .selected {
   background-color: lightblue; /* Atur warna yang diinginkan untuk kategori yang dipilih */
 }
+.shop .category button {
+  padding: 10px;
+  background: none;
+  text-align: center;
+  font-size: 17px;
+  font-weight: 500;
+  color: black; /* Menambahkan warna hitam pada tombol */
+}
+
+.shop .price h4 {
+  color: black; /* Menambahkan warna hitam pada harga */
+}
