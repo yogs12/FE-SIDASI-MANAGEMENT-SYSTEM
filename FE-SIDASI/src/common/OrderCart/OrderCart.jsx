@@ -24,7 +24,7 @@ function OrderCart() {
         <div className="row px-3">
           <div className="col">
             <ul id="progressbar">
-              <li className="step0 active " id="step1">
+              <li className="step0 active" id="step1">
                 PLACED
               </li>
               <li className="step0 active text-center" id="step2">

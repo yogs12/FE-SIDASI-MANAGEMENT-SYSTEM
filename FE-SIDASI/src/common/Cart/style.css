@@ -1,110 +1,140 @@
 .cart-items {
-    background: #f6f9fc;
-    height: auto;
-    padding: 50px 0;
-  }
-  
-  .cart-items .cart-details {
-    width: 70%;
-  }
-  
-  .cart-items .cart-total {
-    width: 30%;
-    margin-top: 30px;
-    margin-left: 30px;
-    height: 130px;
-  }
-  .cart-list {
-    background: white;
-    margin-top: 30px;
-  }
-  .cart-items .img {
-    width: 150px;
-    height: 150px;
-  }
-  .cart-items img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-  }
-  .cart-items .cart-details h3 {
-    font-size: 20px;
-    font-weight: 500;
-    margin-top: 20px;
-  }
-  .cart-items .cart-details h4 {
-    font-size: 15px;
-    font-weight: 400;
-    margin-top: 50px;
-    color: grey;
-  }
-  .cart-items h4 span {
-    color: #e94560;
-    margin-left: 20px;
-    font-weight: 500;
-  }
-  .removeCart {
-    background: none;
-    font-size: 25px;
-    text-align: right;
-    margin-right: 10px;
-  }
-  .cartControl {
-    margin-top: 50px;
-  }
-  .cartControl button {
-    width: 40px;
-    height: 40px;
-    margin: 10px;
-    border-radius: 5px;
-    font-size: 20px;
-  }
-  .incCart {
-    background: none;
-    border: 1px solid rgb(3 0 71 / 9%);
-    color: #e94560;
-  }
-  .desCart {
-    background: #f6f9fc;
-  }
-  .cart-total h4 {
-    font-size: 15px;
-    font-weight: 400;
-  }
-  .cart-total h3 {
-    font-size: 20px;
-    font-weight: 500;
-    color: #e94560;
-  }
-  .cart-total h2 {
-    font-size: 18px;
-    margin-bottom: 20px;
-    border-bottom: 1px solid rgb(3 0 71 / 9%);
-    padding-bottom: 10px;
-    color: #e94560;
-  }
-  .no-items {
-    color: #e94560;
-    font-size: 18px;
-    margin-top: 30px;
-    height: 130px;
-  }
-  /* Additional CSS for admin information and screenshot submission */
-.admin-info {
-  background-color: #f6f9fc;
-  padding: 20px;
+  background: #f6f9fc;
+  height: auto;
+  padding: 50px 0;
+}
+
+.container d_flex {
+  display: flex;
+  justify-content: space-between; /* Ensure items are spaced out correctly */
+}
+
+.cart-details {
+  width: 70%;
+}
+
+.cart-summary {
+  width: 30%;
   margin-top: 30px;
+}
+
+.cart-total {
+  margin-bottom: 30px; /* Add space between cart-total and admin-info */
+}
+
+.cart-list {
+  background: white;
+  margin-top: 30px;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.imgcart {
+  width: 150px;
+  height: 150px;
+}
+
+.cart-items img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.cart-details h3 {
+  font-size: 20px;
+  font-weight: 500;
+  margin-top: 20px;
+}
+
+.cart-details h4 {
+  font-size: 15px;
+  font-weight: 400;
+  margin-top: 50px;
+  color: grey;
+}
+
+h4 span {
+  color: #e94560;
+  margin-left: 20px;
+  font-weight: 500;
+}
+
+.removeCart {
+  background: none;
+  font-size: 25px;
+  text-align: right;
+  margin-right: 10px;
+}
+
+.cartControl {
+  margin-top: 50px;
+}
+
+.cartControl button {
+  width: 40px;
+  height: 40px;
+  margin: 10px;
+  border-radius: 5px;
+  font-size: 20px;
+}
+
+.incCart {
+  background: none;
+  border: 1px solid rgb(3 0 71 / 9%);
+  color: #e94560;
+}
+
+.desCart {
+  background: #f6f9fc;
+}
+
+.cart-total h4 {
+  font-size: 15px;
+  font-weight: 400;
+}
+
+.cart-total h3 {
+  font-size: 20px;
+  font-weight: 500;
+  color: #e94560;
+}
+
+.cart-total h2 {
+  font-size: 18px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid rgb(3 0 71 / 9%);
+  padding-bottom: 10px;
+  color: #e94560;
+}
+
+.no-items {
+  color: #e94560;
+  font-size: 18px;
+  margin-top: 30px;
+  height: 130px;
+}
+
+/* Additional CSS for admin information */
+.admin-info {
+  width: 95%; /* Reduce the width */
+  margin: 0 auto; /* Center the admin-info section */
+  background-color: white;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1); /* Add shadow instead of border */
 }
 
 .admin-info h2 {
   font-size: 20px;
   font-weight: bold;
   margin-bottom: 10px;
+  color: #e94560;
 }
 
 .admin-info p {
   font-size: 16px;
   margin-bottom: 10px;
+  
 }
 
 .admin-info form {
