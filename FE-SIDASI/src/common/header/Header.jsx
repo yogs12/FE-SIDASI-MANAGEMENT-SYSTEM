@@ -1,4 +1,5 @@
 import React from "react"
+// import { Link } from "react-router-dom";
 import "./Header.css"
 import Head from "./Head"
 import Search from "./Search"
@@ -10,6 +11,7 @@ const Header = ({ CartItem }) => {
       <Head />
       <Search CartItem={CartItem} />
       <Navbar />
+      {/* <Link to="/Profil"></Link> */}
     </>
   )
 }

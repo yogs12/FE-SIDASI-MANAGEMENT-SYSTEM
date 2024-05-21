@@ -3,6 +3,7 @@ import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./common/header/Header";
 import Pages from "./pages/Pages";
+import Profil from "./common/Profil/Profil";
 import Data from "./components/Data";
 import Cart from "./common/Cart/Cart";
 import OrderCart from "./common/OrderCart/orderCart";
@@ -66,6 +67,7 @@ function App() {
               />
             }
           />
+          <Route path="/Profil" element={<Profil />} />
           <Route path="/lacak-pesanan" element={<OrderCart />} />
         </Routes>
         <Footer />
