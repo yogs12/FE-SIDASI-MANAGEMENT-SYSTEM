@@ -1,5 +1,6 @@
 .container-fluid {
   padding: 50px;
+  
 }
 
 .card {
@@ -50,9 +51,9 @@
   content: "";
   width: 20px; /* Memperbesar ukuran lingkaran langkah */
   height: 20px; /* Memperbesar ukuran lingkaran langkah */
-  border: 2px solid #ddd;
+  border: 2px solid #28a745;
   border-radius: 50%;
-  background: white;
+  background: #28a745;
   position: absolute;
   top: -10px; /* Menggeser lingkaran langkah ke atas */
   left: 50%;
@@ -63,8 +64,8 @@
 #progressbar li::after {
   content: "";
   width: calc(100% + 4px); /* Menyesuaikan lebar garis langkah */
-  height: 2px; /* Mengurangi ketebalan garis langkah */
-  background: #000; /* Garis hitam tipis */
+  height: 1px; /* Mengurangi ketebalan garis langkah */
+  background: #adadad; /* Garis hitam tipis */
   position: absolute;
   top: 0;
   left: 50%;
@@ -92,16 +93,18 @@
 
 /* Menyambung garis dengan warna hitam tipis */
 #progressbar li.active + li::after {
-  background: #000;
+  background:#adadad;;
 }
+
 .progress-circle {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%; /* Pastikan border-radius 50% */
   display: inline-flex;
   justify-content: center;
   align-items: center;
   margin-top: 20px;
+  margin-right: 20px; /* Tambahkan jarak antara lingkaran dan deskripsi */
 }
 
 .red {
@@ -116,10 +119,6 @@
   background-color: #28a745; /* Warna Hijau */
 }
 
-.progress-text {
-  color: white;
-  font-weight: bold;
-}
 .ml-sm-auto {
   margin-left: auto;
 }
@@ -127,7 +126,19 @@
 .text-right {
   text-align: right;
 }
+
 .align-self-start {
   align-self: flex-start; /* Menyelaraskan ke bagian atas container */
 }
 
+.progress-info {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 20px;
+}
+
+.progress-description {
+  font-size: 14px;
+  color: #6c757d;
+}

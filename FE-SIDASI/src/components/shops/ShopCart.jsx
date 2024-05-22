@@ -17,13 +17,22 @@ const ShopCart = ({ shopItems, addToCart }) => {
         return (
           <div className='box' key={index}>
             <div className='product mtop'>
-              <div className='img'>
-                <span className={`info ${textColor}`}>{shopItem.info}</span>
-                <img src={shopItem.cover} alt='' />
-                <div className='product-like'>
-                  <label>{/* Tidak perlu menampilkan jumlah di sini */}</label> <br />
-                  <i className='fa-regular fa-heart'></i>
-                </div>
+              <div className='img' style={{ position: 'relative' }}>
+                <span
+                  className={`info ${textColor}`}
+                  style={{
+                    color: 'white',
+                    borderRadius: '8px',
+                    backgroundColor: textColor,
+                    padding: '2px 8px',
+                    position: 'absolute',
+                    top: '10px', // Adjust top position
+                    left: '10px', // Adjust left position
+                  }}
+                >
+                  {shopItem.info}
+                </span>
+                <img src={shopItem.cover} alt='' style={{ display: 'block', width: '100%' }} />
               </div>
               <div className='product-details'>
                 <h3>{shopItem.name}</h3>
@@ -32,7 +41,6 @@ const ShopCart = ({ shopItems, addToCart }) => {
                 </div>
                 <div className='price'>
                   <h4>Rp.{shopItem.price}</h4>
-                  {/* Mengubah onClick pada button menjadi handleAddToCart */}
                   <button onClick={() => handleAddToCart(shopItem)}>
                     <i className='fa fa-plus'></i>
                   </button>

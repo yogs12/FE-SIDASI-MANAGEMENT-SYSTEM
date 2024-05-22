@@ -6,9 +6,10 @@ import Pages from "./pages/Pages";
 import Profil from "./common/Profil/Profil";
 import Data from "./components/Data";
 import Cart from "./common/Cart/Cart";
-import OrderCart from "./common/OrderCart/orderCart";
+import OrderCart from "./common/OrderCart/OrderCart";
 import Footer from "./common/footer/Footer";
 import Sdata from "./components/shops/Sdata";
+import EditProfil from "./common/Profil/editprofil";
 
 
 function App() {
@@ -68,6 +69,7 @@ function App() {
             }
           />
           <Route path="/Profil" element={<Profil />} />
+          <Route path="/EditProfil" element={<EditProfil />} />
           <Route path="/lacak-pesanan" element={<OrderCart />} />
         </Routes>
         <Footer />

@@ -25,10 +25,7 @@ const Shop = ({ addToCart }) => {
               <div className='heading-left row  f_flex'>
                 <h2>Semua Produk</h2>
               </div>
-              <div className='heading-right row '>
-                <span>Lihat Semua</span>
-                <i className='fa-solid fa-caret-right'></i>
-              </div>
+
             </div>
             <div className='product-content  grid1'>
               <ShopCart addToCart={addToCart} shopItems={filteredItems} />

@@ -56,7 +56,7 @@ const Cart = ({ cartItems, addToCart, decreaseQty }) => {
               <h2>Total Pembayaran</h2>
               <div className="d_flex">
                 <h4>Total Price :</h4>
-                <h3>Rp.{cartItems.length === 0 ? '0.000' : totalPrice}.000</h3>
+                <h3>Rp.{cartItems.length === 0 ? '0' : totalPrice}.000</h3>
               </div>
             </div>
 
