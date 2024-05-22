@@ -25,20 +25,21 @@ function OrderCart() {
               </div>
             </div>
             <div className="row px-3">
-              <div className="col">
-                <ul className="tracking-list">
-                  <li className="step0 active" id="step1">
-                    <i className="fas fa-cog"></i> PROSES
-                  </li>
-                  <li className="step0 active text-center" id="step2">
-                    <i className="fas fa-box"></i> DIKEMAS
-                  </li>
-                  <li className="step0 text-muted text-right" id="step3">
-                    <i className="fas fa-check"></i> SELESAI
-                  </li>
-                </ul>
-              </div>
-            </div>
+  <div className="col">
+    <ul className="tracking-list" id="progressbar"> {/* Tambahkan ID progressbar di sini */}
+      <li className="active" id="step1">
+        <i className="fas fa-cog"></i> PROSES
+      </li>
+      <li className="active text-center" id="step2">
+        <i className="fas fa-box"></i> DIKEMAS
+      </li>
+      <li className="text-muted text-right" id="step3">
+        <i className="fas fa-check"></i> SELESAI
+      </li>
+    </ul>
+  </div>
+</div>
+
           </div>
         </div>
         <div className="col-md-6"> {/* Bagian kanan untuk Informasi Proses */}
