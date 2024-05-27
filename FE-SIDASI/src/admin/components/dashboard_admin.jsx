@@ -1,3 +1,4 @@
+// src/admin/content/Dashboard_admin.jsx
 import React from 'react';
 import './Dashboard_admin.css';
 

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./common/header/Header";
 import Pages from "./pages/Pages";
@@ -11,6 +10,10 @@ import Footer from "./common/footer/Footer";
 import Sdata from "./components/shops/Sdata";
 import EditProfil from "./common/Profil/editprofil";
 
+// Import komponen admin
+import Header_admin from "./admin/common/header_admin/Header_admin";
+import Dashboard_admin from "./admin/components/dashboard_admin";
+import './App.css';
 
 function App() {
   const [cartItems, setCartItems] = useState([]);
