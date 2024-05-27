@@ -46,33 +46,54 @@ function App() {
   return (
     <>
       <Router>
-        <Header cartItems={cartItems} />
         <Routes>
           <Route
-            path="/"
+            path="/admin/*"
             element={
-              <Pages
-                productItems={Data.productItems}
-                addToCart={addToCart}
-                shopItems={Sdata.shopItems}
-              />
+              <>
+                <Header_admin />
+                <Routes>
+                  <Route path="dashboard" element={<Dashboard_admin />} />
+                  {/* Tambahkan rute admin lainnya di sini */}
+                </Routes>
+              </>
             }
           />
           <Route
-            path="/cart"
+            path="/*"
             element={
-              <Cart
-                cartItems={cartItems}
-                addToCart={addToCart}
-                decreaseQty={decreaseQty}
-              />
+              <>
+                <Header cartItems={cartItems} />
+                <Routes>
+                  <Route
+                    path="/"
+                    element={
+                      <Pages
+                        productItems={Data.productItems}
+                        addToCart={addToCart}
+                        shopItems={Sdata.shopItems}
+                      />
+                    }
+                  />
+                  <Route
+                    path="/cart"
+                    element={
+                      <Cart
+                        cartItems={cartItems}
+                        addToCart={addToCart}
+                        decreaseQty={decreaseQty}
+                      />
+                    }
+                  />
+                  <Route path="/Profil" element={<Profil />} />
+                  <Route path="/EditProfil" element={<EditProfil />} />
+                  <Route path="/lacak-pesanan" element={<OrderCart />} />
+                </Routes>
+                <Footer />
+              </>
             }
           />
-          <Route path="/Profil" element={<Profil />} />
-          <Route path="/EditProfil" element={<EditProfil />} />
-          <Route path="/lacak-pesanan" element={<OrderCart />} />
         </Routes>
-        <Footer />
       </Router>
     </>
   );

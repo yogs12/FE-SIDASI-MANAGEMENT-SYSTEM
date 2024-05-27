@@ -1,0 +1,27 @@
+.dashboard_admin {
+    margin-left: 220px; /* Adjust according to Navbar width */
+    padding: 20px;
+  }
+  
+  .cards_admin {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+  }
+  
+  .card_admin {
+    background-color: #34495E;
+    color: white;
+    padding: 20px;
+    width: 30%;
+    text-align: center;
+  }
+  
+  .subscription_admin {
+    text-align: center;
+  }
+  
+  .subscription_admin h3 {
+    margin-bottom: 10px;
+  }
+  
