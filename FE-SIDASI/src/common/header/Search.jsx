@@ -3,7 +3,7 @@ import logo from "../../components/assets/images/logo_2.png";
 import { Link } from "react-router-dom";
 import "./Search.css"; 
 
-const Search = ({ cartItems }) => {
+const Search = ({ CartItems }) => {
   const [showProfile, setShowProfile] = useState(false);
 
   const toggleProfile = () => {
@@ -13,7 +13,7 @@ const Search = ({ cartItems }) => {
   const handleLogout = () => {
     console.log("Logout berhasil");
   };
-
+  // console.log(CartItems)
   return (
     <>
       <section className='search'>
@@ -44,7 +44,7 @@ const Search = ({ cartItems }) => {
               <Link to='/cart'>
                 <i className='fa fa-shopping-bag icon-circle'></i>
                 {/* Tambahkan span untuk menampilkan jumlah produk */}
-                <span className="cart-item-count">{cartItems && cartItems.length ? cartItems.reduce((total, item) => total + item.qty, 0) : 0}</span>
+                <span className="cart-item-count">{CartItems && CartItems.length ? CartItems.reduce((total, item) => total + item.qty, 0) : 0}</span>
               </Link>
             </div>
           </div>

@@ -5,8 +5,9 @@ const ShopCart = ({ shopItems, addToCart }) => {
 
   // Fungsi untuk menambah item ke keranjang
   const handleAddToCart = (item) => {
+    setCartCount(cartCount + 1); 
     addToCart(item);
-    setCartCount(cartCount + 1); // Menambahkan satu ke jumlah produk di keranjang
+    console.log(cartCount)// Menambahkan satu ke jumlah produk di keranjang
   };
 
   return (

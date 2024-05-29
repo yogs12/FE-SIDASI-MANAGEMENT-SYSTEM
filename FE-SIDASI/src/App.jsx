@@ -66,7 +66,7 @@ function App() {
             path="/*"
             element={
               <>
-                <Header cartItems={cartItems} />
+                <Header CartItem={cartItems} />
                 <Routes>
                   <Route
                     path="/"

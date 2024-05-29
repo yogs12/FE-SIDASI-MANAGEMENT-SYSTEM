@@ -17,7 +17,7 @@ const Cart = ({ cartItems, addToCart, decreaseQty }) => {
           <div className="cart-details">
             {cartItems.length === 0 && <h1 className="no-items product">Tidak ada pesanan</h1>}
             {cartItems.map((item) => {
-              const productQty = item.price * item.qty;
+              const productQty = +item.price * item.qty;
               return (
                 <div className="cart-list product d_flex" key={item.id}>
                   <div className="imgcart">
@@ -27,7 +27,7 @@ const Cart = ({ cartItems, addToCart, decreaseQty }) => {
                     <h3>{item.name}</h3>
                     <h4>
                       Rp.{item.price} * {item.qty}
-                      <span>Rp.{productQty}.000</span>
+                      <span>Rp.{productQty}</span>
                     </h4>
                   </div>
                   <div className="cart-items-function">
@@ -56,7 +56,7 @@ const Cart = ({ cartItems, addToCart, decreaseQty }) => {
               <h2>Total Pembayaran</h2>
               <div className="d_flex">
                 <h4>Total Price :</h4>
-                <h3>Rp.{cartItems.length === 0 ? '0' : totalPrice}.000</h3>
+                <h3>Rp.{cartItems.length === 0 ? '0' : totalPrice}</h3>
               </div>
             </div>
 
