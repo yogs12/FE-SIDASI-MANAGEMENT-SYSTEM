@@ -8,11 +8,11 @@ import Cart from "./common/Cart/Cart";
 import OrderCart from "./common/OrderCart/OrderCart";
 import Footer from "./common/footer/Footer";
 import Sdata from "./components/shops/Sdata";
-import EditProfil from "./common/Profil/editprofil";
+import EditProfil from "./common/Profil/EditProfil";
 
 // Import komponen admin
-import Header_admin from "./admin/common/header_admin/Header_admin";
-import Dashboard_admin from "./admin/components/dashboard_admin";
+import AdminLayout from "./admin/adminLayout";
+import Dashboard_admin from "./admin/components/Dashboard_admin";
 import './App.css';
 
 function App() {
@@ -47,58 +47,51 @@ function App() {
   };
 
   return (
-    <>
-      <Router>
-        <Routes>
-          <Route
-            path="/admin/*"
-            element={
-              <>
-                <Header_admin />
-                <Routes>
-                  <Route path="dashboard" element={<Dashboard_admin />} />
-                  {/* Tambahkan rute admin lainnya di sini */}
-                </Routes>
-              </>
-            }
-          />
-          <Route
-            path="/*"
-            element={
-              <>
-                <Header CartItem={cartItems} />
-                <Routes>
-                  <Route
-                    path="/"
-                    element={
-                      <Pages
-                        productItems={Data.productItems}
-                        addToCart={addToCart}
-                        shopItems={Sdata.shopItems}
-                      />
-                    }
-                  />
-                  <Route
-                    path="/cart"
-                    element={
-                      <Cart
-                        cartItems={cartItems}
-                        addToCart={addToCart}
-                        decreaseQty={decreaseQty}
-                      />
-                    }
-                  />
-                  <Route path="/Profil" element={<Profil />} />
-                  <Route path="/EditProfil" element={<EditProfil />} />
-                  <Route path="/lacak-pesanan" element={<OrderCart />} />
-                </Routes>
-                <Footer />
-              </>
-            }
-          />
-        </Routes>
-      </Router>
-    </>
+    <Router>
+      <Routes>
+        <Route
+          path="/admin/*"
+          element={<AdminLayout />}
+        >
+          <Route path="dashboard" element={<Dashboard_admin />} />
+          {/* Tambahkan rute admin lainnya di sini */}
+        </Route>
+        <Route
+          path="/*"
+          element={
+            <>
+              <Header CartItem={cartItems} />
+              <Routes>
+                <Route
+                  path="/"
+                  element={
+                    <Pages
+                      productItems={Data.productItems}
+                      addToCart={addToCart}
+                      shopItems={Sdata.shopItems}
+                    />
+                  }
+                />
+                <Route
+                  path="/cart"
+                  element={
+                    <Cart
+                      cartItems={cartItems}
+                      addToCart={addToCart}
+                      decreaseQty={decreaseQty}
+                    />
+                  }
+                />
+                <Route path="/Profil" element={<Profil />} />
+                <Route path="/EditProfil" element={<EditProfil />} />
+                <Route path="/lacak-pesanan" element={<OrderCart />} />
+              </Routes>
+              <Footer />
+            </>
+          }
+        />
+      </Routes>
+    </Router>
   );
 }
 
