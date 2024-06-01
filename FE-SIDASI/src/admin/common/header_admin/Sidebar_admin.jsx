@@ -33,7 +33,7 @@ const Sidebar_admin = ({ openSidebarToggle, OpenSidebar }) => {
           </Link>
         </li>
         <li className='nav-item'>
-          <Link to="/admin/inventory">
+          <Link to="/admin/riwayat">
             <i className="fa-solid fa-history"></i> Riwayat
           </Link>
         </li>

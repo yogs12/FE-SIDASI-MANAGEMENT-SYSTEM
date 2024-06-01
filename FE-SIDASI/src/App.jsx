@@ -12,7 +12,12 @@ import EditProfil from "./common/Profil/EditProfil";
 
 // Import komponen admin
 import AdminLayout from "./admin/adminLayout";
-import Dashboard_admin from "./admin/components/Dashboard_admin";
+import DashboardAdmin from "./admin/components/DashboardAdmin";
+import ProdukAdmin from "./admin/components/ProdukAdmin";
+import PesananAdmin from "./admin/components/PesananAdmin";
+import TransaksiAdmin from "./admin/components/TransaksiAdmin";
+import RiwayatAdmin from "./admin/components/RiwayatAdmin";
+import PelangganAdmin from "./admin/components/PelangganAdmin";
 import './App.css';
 
 function App() {
@@ -53,8 +58,12 @@ function App() {
           path="/admin/*"
           element={<AdminLayout />}
         >
-          <Route path="beranda" element={<Dashboard_admin />} />
-          {/* Tambahkan rute admin lainnya di sini */}
+          <Route path="beranda" element={<DashboardAdmin />} />
+          <Route path="produk" element={<ProdukAdmin />} />
+          <Route path="pesanan" element={<PesananAdmin />} />
+          <Route path="transaksi" element={<TransaksiAdmin />} />
+          <Route path="riwayat" element={<RiwayatAdmin />} />
+          <Route path="pelanggan" element={<PelangganAdmin />} />
         </Route>
         <Route
           path="/*"
