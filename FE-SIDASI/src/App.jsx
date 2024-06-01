@@ -53,7 +53,7 @@ function App() {
           path="/admin/*"
           element={<AdminLayout />}
         >
-          <Route path="dashboard" element={<Dashboard_admin />} />
+          <Route path="beranda" element={<Dashboard_admin />} />
           {/* Tambahkan rute admin lainnya di sini */}
         </Route>
         <Route

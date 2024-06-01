@@ -1,18 +1,19 @@
-.head_admin {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    padding: 10px 20px;
-    background-color: #ecf0f1;
-  }
-  
-  .notification-icon_admin {
-    font-size: 24px;
-    margin-right: 20px;
-    cursor: pointer;
-  }
-  
-  .profile-icon_admin {
-    font-size: 18px;
-  }
-  
+.admin_header {
+  display: flex;
+  justify-content: flex-end; /* Ensures the icons are aligned to the right */
+  align-items: center;
+  background: #ffffff;
+  padding: 10px 20px;
+}
+
+.admin_header-right {
+  display: flex;
+  align-items: center;
+}
+
+.admin_header-right .admin_header-icon {
+  color: #0f3460;
+  font-size: 20px;
+  margin: 0 10px;
+  cursor: pointer;
+}

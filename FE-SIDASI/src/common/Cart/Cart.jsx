@@ -55,7 +55,7 @@ const Cart = ({ cartItems, addToCart, decreaseQty }) => {
             <div className="cart-total product">
               <h2>Total Pembayaran</h2>
               <div className="d_flex">
-                <h4>Total Price :</h4>
+                <h4>Harga Total :</h4>
                 <h3>Rp.{cartItems.length === 0 ? '0' : totalPrice}</h3>
               </div>
             </div>
@@ -65,7 +65,7 @@ const Cart = ({ cartItems, addToCart, decreaseQty }) => {
               <h2>Informasi Pembayaran</h2>
               <p>Nomor Rekening: XXXXXXXX</p>
               <form onSubmit={handleSubmit}>
-                <label htmlFor="screenshot">Screenshot:</label>
+                <label htmlFor="screenshot">Tangkap Layar:</label>
                 <input type="file" id="screenshot" name="screenshot" accept="image/*" required />
                 <button type="submit">Kirim</button>
               </form>

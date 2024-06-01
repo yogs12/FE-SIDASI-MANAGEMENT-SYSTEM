@@ -15,10 +15,11 @@
 
 .cart-summary {
   width: 30%;
-  margin-top: 30px;
+  margin-top: 0px;
 }
 
 .cart-total {
+  height: 130px;
   margin-bottom: 30px; /* Add space between cart-total and admin-info */
 }
 

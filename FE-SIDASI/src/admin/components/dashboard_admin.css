@@ -1,27 +1,66 @@
 .dashboard_admin {
-    margin-left: 220px; /* Adjust according to Navbar width */
-    padding: 20px;
-  }
+  margin-left: 0; /* Reset margin kiri */
+  padding: 20px;
+  max-width: 1200px; /* Atur lebar maksimal untuk dashboard */
+  width: 100%;
   
-  .cards_admin {
-    display: flex;
-    justify-content: space-around;
-    margin-bottom: 20px;
-  }
+
+}
+
+.top-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f8f9fa; /* Warna latar belakang */
+  border-radius: 10px; /* Radius border */
+  padding: 20px;
+  margin-bottom: 10px; /* Kurangi margin-bottom jika diperlukan */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.top-box h1 {
+  color: darkgray;
+}
+.top-box h2, p {
+  margin-left: 5px;
+}
+
+.top-box-content {
+  flex: 1;
+}
+
+.top-box-image {
+  max-width: 400px; /* Sesuaikan lebar gambar */
+  max-height: 300px; /* Sesuaikan tinggi gambar */
+  border-radius: 10px; /* Radius border untuk gambar */
+}
+
+.cards_admin {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+.card_admin {
+  border-radius: 10px;
+  background-color: #0f3460;
+  color: white;
+  padding: 20px;
+  width: 30%;
+  text-align: center;
+}
+
+.subscription_admin {
   
-  .card_admin {
-    background-color: #34495E;
-    color: white;
-    padding: 20px;
-    width: 30%;
-    text-align: center;
-  }
-  
-  .subscription_admin {
-    text-align: center;
-  }
-  
-  .subscription_admin h3 {
-    margin-bottom: 10px;
-  }
-  
+}
+
+.subscription_admin h3 {
+  margin-bottom: 10px;
+}
+
+.cards_admin {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+  margin-top: -30px; /* Atur margin atas negatif untuk menempelkan ke dalam top box */
+}

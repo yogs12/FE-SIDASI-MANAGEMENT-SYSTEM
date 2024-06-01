@@ -1,12 +1,14 @@
 import React from 'react';
-import './Head_admin.css';
+import './Head_admin.css'; // Ensure you have appropriate styling in Head.css
 
-const Head_admin = () => {
+const Head_admin = ({ OpenSidebar }) => {
   return (
-    <div className="head_admin">
-      <div className="notification-icon_admin">🔔</div>
-      <div className="profile-icon_admin">👤 Babayo</div>
-    </div>
+    <header className='admin_header'>
+      <div className='admin_header-right'>
+        <i className="fa-solid fa-bell admin_header-icon"></i>
+        <i className="fa-solid fa-user-circle admin_header-icon"></i>
+      </div>
+    </header>
   );
 };
 

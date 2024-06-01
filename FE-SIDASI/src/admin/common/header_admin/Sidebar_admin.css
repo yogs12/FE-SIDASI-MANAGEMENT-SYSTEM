@@ -1,44 +1,56 @@
-.navbar_admin {
-  background-color: #2C3E50;
-  padding: 10px;
-  width: 200px;
+/* Sidebar_admin.css */
+.navbar {
+  width: 250px;
   height: 100vh;
+  background: #2f3542;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: start;
+  padding: 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow: auto;
 }
 
-.logo_admin {
-  color: white;
+.navbar.responsive {
+  width: 100%;
+}
+
+.logo {
+  color: #fff;
   font-size: 24px;
   margin-bottom: 20px;
 }
 
-.nav-links_admin {
+.nav-links {
   list-style: none;
   padding: 0;
+  width: 100%; /* Ensure the links take full width */
+}
+
+.nav-item {
   width: 100%;
+  margin: 10px 0;
 }
 
-.nav-links_admin li {
-  padding: 10px;
-  color: white;
-  text-align: center;
-  cursor: pointer;
-}
-
-.nav-links_admin li:hover {
-  background-color: #34495E;
-}
-
-.nav-links_admin li a {
-  color: white;
+.nav-item a {
+  color: #fff;
   text-decoration: none;
-  display: block;
-  width: 100%;
-  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  transition: background 0.3s, color 0.3s; /* Smooth transition for hover effect */
+  width: 100%; /* Ensure the link takes full width */
+  box-sizing: border-box; /* Include padding in width calculation */
 }
 
-.nav-links_admin li a:hover {
-  background-color: #34495E;
+.nav-item a i {
+  margin-right: 10px;
+}
+
+.nav-item a:hover {
+  border-radius: 5px;
+  background: #2d5c96;
+  color: #dfe4ea;
 }
