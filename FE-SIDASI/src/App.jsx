@@ -59,7 +59,7 @@ function App() {
           element={<AdminLayout />}
         >
           <Route path="beranda" element={<DashboardAdmin />} />
-          <Route path="produk" element={<ProdukAdmin />} />
+          <Route path="produk" element={<ProdukAdmin products={Sdata.shopItems} />} />
           <Route path="pesanan" element={<PesananAdmin />} />
           <Route path="transaksi" element={<TransaksiAdmin />} />
           <Route path="riwayat" element={<RiwayatAdmin />} />

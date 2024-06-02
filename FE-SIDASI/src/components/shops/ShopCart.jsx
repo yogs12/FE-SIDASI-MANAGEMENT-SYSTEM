@@ -36,7 +36,7 @@ const ShopCart = ({ shopItems, addToCart }) => {
                 <img src={shopItem.cover} alt='' style={{ display: 'block', width: '100%' }} />
               </div>
               <div className='product-details'>
-                <h3>{shopItem.name}</h3>
+                <h3>{shopItem.name} / {shopItem.unit} </h3>
                 <div className='stok'>
                   <p>Stok: <span style={{ color: textColor }}>{shopItem.stok}</span></p>
                 </div>

@@ -29,6 +29,10 @@ const Navbar = () => {
               <li>
                 <Link to="/contact">Kontak</Link>
               </li>
+              <li>
+                <Link to="/admin/beranda">Admin</Link>
+                
+              </li>
             </ul>
 
             <button
