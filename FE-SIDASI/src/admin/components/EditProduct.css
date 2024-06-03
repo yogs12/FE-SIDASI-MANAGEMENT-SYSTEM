@@ -1,0 +1,11 @@
+/* EditProduct.css */
+.input-with-border {
+    border: 2px solid #fcfcfc; /* Ganti dengan warna yang kamu inginkan */
+    border-radius: 4px; /* Untuk sudut border yang sedikit melengkung */
+  }
+  
+  .input-with-border:focus {
+    outline: none; /* Menghilangkan outline saat input di-fokus */
+    border-color: #ffffff; /* Ganti dengan warna yang kamu inginkan saat input di-fokus */
+  }
+  

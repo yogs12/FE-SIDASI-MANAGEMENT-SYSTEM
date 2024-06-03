@@ -11,6 +11,7 @@ import Sdata from "./components/shops/Sdata";
 import EditProfil from "./common/Profil/EditProfil";
 
 // Import komponen admin
+import AddProduct from "./admin/components/AddProduct";
 import AdminLayout from "./admin/adminLayout";
 import DashboardAdmin from "./admin/components/DashboardAdmin";
 import ProdukAdmin from "./admin/components/ProdukAdmin";
@@ -20,7 +21,6 @@ import RiwayatAdmin from "./admin/components/RiwayatAdmin";
 import PelangganAdmin from "./admin/components/PelangganAdmin";
 import DetailProduct from "./admin/components/DetailProduct";
 import EditProduct from "./admin/components/EditProduct";
-import DeleteProduct from "./admin/components/DeleteProduct";
 import './App.css';
 
 function App() {
@@ -75,9 +75,9 @@ function App() {
         <Route path="/admin/*" element={<AdminLayout />}>
           <Route path="beranda" element={<DashboardAdmin />} />
           <Route path="produk" element={<ProdukAdmin products={products} addProduct={addProduct} updateProduct={updateProduct} deleteProduct={deleteProduct} />} />
+          <Route path="produk/add" element={<AddProduct addProduct={addProduct} />} />
           <Route path="produk/detail/:id" element={<DetailProduct products={products} />} />
           <Route path="produk/edit/:id" element={<EditProduct products={products} updateProduct={updateProduct} />} />
-          <Route path="produk/delete/:id" element={<DeleteProduct products={products} deleteProduct={deleteProduct} />} />
           <Route path="pesanan" element={<PesananAdmin />} />
           <Route path="transaksi" element={<TransaksiAdmin />} />
           <Route path="riwayat" element={<RiwayatAdmin />} />

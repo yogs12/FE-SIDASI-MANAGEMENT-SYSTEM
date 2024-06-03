@@ -33,4 +33,6 @@
   .add-button {
     height: 40px;
   }
-  
+  .table-row {
+    border-bottom: 1px solid #ddd; /* Warna dan ketebalan garis dapat disesuaikan */
+  }

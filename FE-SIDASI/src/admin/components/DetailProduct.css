@@ -1,0 +1,30 @@
+.detail-product_detail {
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+  
+  .product-name_detail {
+    color: #333;
+  }
+  
+  .product-info_detail {
+    display: flex;
+    align-items: center;
+  }
+  
+  .product-image_detail {
+    max-width: 200px;
+    margin-right: 20px;
+  }
+  
+  .product-details_detail p {
+    margin: 5px 0;
+  }
+  
+  .product-details_detail strong {
+    margin-right: 5px;
+  }
+  
