@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, TextField, IconButton, Button, Dialog, DialogTitle, DialogContent, DialogActions, MenuItem, Snackbar, Alert, Grid } from '@mui/material';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGauge, faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
 import './produk_admin.css';
 
-const ProdukAdmin = ({ products }) => {
+const ProdukAdmin = ({ products, addProduct, updateProduct, deleteProduct }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredProducts, setFilteredProducts] = useState(products);
   const [open, setOpen] = useState(false);
@@ -50,10 +51,9 @@ const ProdukAdmin = ({ products }) => {
   };
 
   const handleSave = () => {
-    // Add the new product to the product list (this is just an example, you should handle this according to your data management)
-    setFilteredProducts((prevProducts) => [...prevProducts, { ...newProduct, id: prevProducts.length + 1 }]);
+    addProduct(newProduct);
     handleClose();
-    setSnackbarOpen(true); // Show success notification
+    setSnackbarOpen(true);
   };
 
   return (
@@ -66,7 +66,7 @@ const ProdukAdmin = ({ products }) => {
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           InputLabelProps={{
-            style: { textAlign: 'center', fontSize: '14px' } // Atur label ke tengah dan ukuran teks
+            style: { textAlign: 'center', fontSize: '14px' }
           }}
         />
         <Button variant="contained" color="primary" className="add-button" onClick={handleOpen}>
@@ -102,15 +102,21 @@ const ProdukAdmin = ({ products }) => {
                 <TableCell>{product.unit}</TableCell>
                 <TableCell>{product.info}</TableCell>
                 <TableCell>
-                  <IconButton aria-label="detail" color="primary" style={{ marginRight: '5px' }}>
-                    <FontAwesomeIcon icon={faGauge} style={{ fontSize: '16px' }} />
-                  </IconButton>
-                  <IconButton aria-label="edit" color="secondary" style={{ marginRight: '5px' }}>
-                    <FontAwesomeIcon icon={faEdit} style={{ fontSize: '16px' }} />
-                  </IconButton>
-                  <IconButton aria-label="hapus" color="error">
-                    <FontAwesomeIcon icon={faTrash} style={{ fontSize: '16px' }} />
-                  </IconButton>
+                  <Link to={`/admin/produk/detail/${product.id}`}>
+                    <IconButton aria-label="detail" color="primary" style={{ marginRight: '5px' }}>
+                      <FontAwesomeIcon icon={faGauge} style={{ fontSize: '16px' }} />
+                    </IconButton>
+                  </Link>
+                  <Link to={`/admin/produk/edit/${product.id}`}>
+                    <IconButton aria-label="edit" color="secondary" style={{ marginRight: '5px' }}>
+                      <FontAwesomeIcon icon={faEdit} style={{ fontSize: '16px' }} />
+                    </IconButton>
+                  </Link>
+                  <Link to={`/admin/produk/delete/${product.id}`}>
+                    <IconButton aria-label="hapus" color="error">
+                      <FontAwesomeIcon icon={faTrash} style={{ fontSize: '16px' }} />
+                    </IconButton>
+                  </Link>
                 </TableCell>
               </TableRow>
             ))}
@@ -217,16 +223,15 @@ const ProdukAdmin = ({ products }) => {
       </Dialog>
 
       <Snackbar
-  open={snackbarOpen}
-  autoHideDuration={6000}
-  onClose={handleSnackbarClose}
-  anchorOrigin={{ vertical: 'top', horizontal: 'center' }} // Menentukan posisi notifikasi di tengah atas
->
-  <Alert onClose={handleSnackbarClose} severity="success" sx={{ width: '100%' }}>
-    Produk berhasil ditambahkan!
-  </Alert>
-</Snackbar>
-
+        open={snackbarOpen}
+        autoHideDuration={6000}
+        onClose={handleSnackbarClose}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+      >
+        <Alert onClose={handleSnackbarClose} severity="success" sx={{ width: '100%' }}>
+          Produk berhasil ditambahkan!
+        </Alert>
+      </Snackbar>
     </div>
   );
 };
