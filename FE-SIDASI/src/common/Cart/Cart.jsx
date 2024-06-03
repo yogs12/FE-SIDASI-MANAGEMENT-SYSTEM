@@ -1,8 +1,12 @@
 import React from "react";
 import "./style.css";
 
-const Cart = ({ cartItems, addToCart, decreaseQty }) => {
+const Cart = ({ cartItems, addToCart, decreaseQty, removeFromCart }) => {
   const totalPrice = cartItems.reduce((price, item) => price + item.qty * item.price, 0);
+
+  const removeItem = (item) => {
+    removeFromCart(item);
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -32,7 +36,7 @@ const Cart = ({ cartItems, addToCart, decreaseQty }) => {
                   </div>
                   <div className="cart-items-function">
                     <div className="removeCart">
-                      <button className="removeCart">
+                      <button className="removeCart" onClick={() => removeItem(item)}>
                         <i className="fa-solid fa-xmark"></i>
                       </button>
                     </div>

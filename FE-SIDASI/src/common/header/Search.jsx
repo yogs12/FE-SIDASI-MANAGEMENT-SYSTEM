@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import logo from "../../components/assets/images/logo_2.png";
+import logo from "../../components/assets/images/logo_3.png";
 import { Link } from "react-router-dom";
 import "./Search.css"; 
 
@@ -18,8 +18,10 @@ const Search = ({ CartItems }) => {
     <>
       <section className='search'>
         <div className='container c_flex'>
-          <div className='logo width'>
-            <img src={logo} alt='' />
+          <div className='logo_header'>
+          <Link to='/h'> {/* Ganti '#' dengan path ke beranda, biasanya '/' */}
+        <img src={logo} alt='Logo' />
+      </Link>
           </div>
 
           <div className='search-box f_flex'>

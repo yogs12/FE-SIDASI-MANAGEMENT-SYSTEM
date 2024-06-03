@@ -33,6 +33,10 @@
 .imgcart {
   width: 150px;
   height: 150px;
+  margin-right: 10px;
+}
+.imgcart  img {
+border-radius: 15px;
 }
 
 .cart-items img {

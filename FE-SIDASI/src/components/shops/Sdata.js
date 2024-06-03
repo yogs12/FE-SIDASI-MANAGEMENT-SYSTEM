@@ -2,7 +2,7 @@ const Sdata = {
   shopItems: [
     {
       id: 7,
-      cover: "./images/shops/Telur.jpg",
+      cover: "/images/shops/Telur.jpg",
       name: "Telur Ayam",
       unit: 'Kg',
       price: 15000,
@@ -12,7 +12,7 @@ const Sdata = {
     },
     {
       id: 8,
-      cover: "./images/shops/Milku.jpg",
+      cover: "/images/shops/Milku.jpg",
       name: "Milku",
       unit: 'Pcs',
       price: 3000,
@@ -22,7 +22,7 @@ const Sdata = {
     },
     {
       id: 9,
-      cover: "./images/shops/Mie_Sarimi.jpg",
+      cover: "/images/shops/Mie_Sarimi.jpg",
       name: "Mie Sarimi",
       unit: 'Pcs',
       price: 5000,
@@ -32,7 +32,7 @@ const Sdata = {
     },
     {
       id: 10,
-      cover: "./images/shops/Beras.jpg",
+      cover: "/images/shops/Beras.jpg",
       name: "Beras",
       unit: 'Karung',
       price: 348500,
@@ -42,7 +42,7 @@ const Sdata = {
     },
     {
       id: 11,
-      cover: "./images/shops/GulaPasir_Bintang.jpg",
+      cover: "/images/shops/GulaPasir_Bintang.jpg",
       name: "Gula Pasir Bintang",
       unit: 'Pcs',
       price: 17000,
@@ -52,7 +52,7 @@ const Sdata = {
     },
     {
       id: 12,
-      cover: "./images/shops/Kopi_kapalApi.jpg",
+      cover: "/images/shops/Kopi_kapalApi.jpg",
       name: "Kopi Kapal Api",
       unit: 'Renceng',
       price: 11500,
@@ -62,7 +62,7 @@ const Sdata = {
     },
     {
       id: 13,
-      cover: "./images/shops/GulaPasir.jpg",
+      cover: "/images/shops/GulaPasir.jpg",
       name: "Gula Pasir",
       unit: 'Kg',
       price: 9500,
@@ -72,7 +72,7 @@ const Sdata = {
     },
     {
       id: 14,
-      cover: "./images/shops/baby_potty.jpg",
+      cover: "/images/shops/baby_potty.jpg",
       name: "Baby Potty Toilet",
       unit: 'Pcs',
       price: 38000,
@@ -82,7 +82,7 @@ const Sdata = {
     },
     {
       id: 15,
-      cover: "./images/shops/lipstik.jpg",
+      cover: "/images/shops/lipstik.jpg",
       name: "Metta Lip Gloss",
       unit: 'Pcs',
       price: 80000,
@@ -92,7 +92,7 @@ const Sdata = {
     },
     {
       id: 16,
-      cover: "./images/shops/Piring_palstik.jpg",
+      cover: "/images/shops/Piring_palstik.jpg",
       name: "Piring Plastik",
       unit: 'Pcs',
       price: 15000,

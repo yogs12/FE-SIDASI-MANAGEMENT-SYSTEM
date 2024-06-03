@@ -1,0 +1,36 @@
+.search-add-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Menempatkan input pencarian di kiri dan tombol di kanan */
+    margin-bottom: 20px;
+  }
+  
+  .search-input {
+    flex-grow: 1; /* Membuat input pencarian mengisi ruang kosong */
+    max-width: 400px;
+    background-color: #fff;
+    border-radius: 20px;
+    margin-right: 10px; /* Tambahkan margin kanan untuk memberikan jarak */
+  }
+  
+  .search-input .MuiOutlinedInput-root {
+    height: 40px;
+    border-radius: 20px;
+  }
+  
+  .search-input .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
+    border-color: #ccc;
+  }
+  
+  .search-input .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+    border-color: #aaa;
+  }
+  
+  .search-input .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: #3f51b5;
+  }
+  
+  .add-button {
+    height: 40px;
+  }
+  
