@@ -1,28 +1,54 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { TextField, Button, MenuItem, Grid, Typography, Container } from '@mui/material';
+import axios from 'axios';
 import './EditProduct.css';
 
-const EditProduct = ({ products, updateProduct }) => {
+const EditProduct = ({ updateProduct }) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [updatedProduct, setUpdatedProduct] = useState({
-    name: '',
-    category: '',
-    price: '',
+    nama_produk: '',
+    kategori: '',
+    harga: '',
     stok: '',
-    unit: '',
-    info: '',
-    photo: null,
-    photoURL: ''
+    satuan: '',
+    status: '',
+    foto_produk: null,
+    fotoURL: ''
   });
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    const product = products.find(product => product.id === parseInt(id));
-    if (product) {
-      setUpdatedProduct(product);
+    fetchProduct();
+  }, [id]);
+
+  const fetchProduct = async () => {
+    try {
+      const response = await axios.get(`http://localhost:3000/products/produks/${id}`);
+      if (response.data && response.data.data && response.data.data.length > 0) {
+        const product = response.data.data[0];
+        setUpdatedProduct({
+          ...product,
+          fotoURL: `http://localhost:3000${product.foto_produk}`,
+          status: product.status === 'Tersedia' ? 'Available' : 'Out of Stock'
+        });
+      } else {
+        setUpdatedProduct(null);
+      }
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      if (error.response && error.response.status === 404) {
+        console.error(`Product with ID ${id} not found`);
+        setUpdatedProduct(null);
+      } else {
+        console.error('Error fetching product', error);
+        setError('Terjadi kesalahan saat mengambil data produk.');
+      }
     }
-  }, [id, products]);
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -35,15 +61,32 @@ const EditProduct = ({ products, updateProduct }) => {
   const handlePhotoChange = (e) => {
     setUpdatedProduct({
       ...updatedProduct,
-      photo: e.target.files[0],
-      photoURL: URL.createObjectURL(e.target.files[0])
+      foto_produk: e.target.files[0],
+      fotoURL: URL.createObjectURL(e.target.files[0])
     });
   };
 
-  const handleSave = () => {
-    updateProduct(updatedProduct);
-    navigate('/admin/produk');
+  const handleSave = async () => {
+    try {
+      const formData = new FormData();
+      for (const key in updatedProduct) {
+        formData.append(key, updatedProduct[key]);
+      }
+      await updateProduct(id, formData);
+      navigate('/admin/produk');
+    } catch (error) {
+      console.error('Error updating product', error);
+      setError('Terjadi kesalahan saat mengupdate data produk.');
+    }
   };
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>{error}</div>;
+  }
 
   if (!updatedProduct) {
     return <div>Produk tidak ditemukan</div>;
@@ -63,12 +106,12 @@ const EditProduct = ({ products, updateProduct }) => {
             type="text"
             fullWidth
             variant="outlined"
-            name="name"
-            value={updatedProduct.name}
+            name="nama_produk"
+            value={updatedProduct.nama_produk}
             onChange={handleChange}
             sx={{
               "& .MuiOutlinedInput-root": {
-                backgroundColor: "#ffffff" // Ganti dengan warna putih yang Anda inginkan
+                backgroundColor: "#ffffff"
               },
               "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
                 borderColor: "#00000"
@@ -86,8 +129,8 @@ const EditProduct = ({ products, updateProduct }) => {
               onChange={handlePhotoChange}
             />
           </Button>
-          {updatedProduct.photoURL && (
-            <img src={updatedProduct.photoURL} alt="Product Preview" className="photo-preview" />
+          {updatedProduct.fotoURL && (
+            <img src={updatedProduct.fotoURL} alt="Product Preview" className="photo-preview" />
           )}
         </Grid>
         <Grid item xs={12}>
@@ -98,12 +141,12 @@ const EditProduct = ({ products, updateProduct }) => {
             select
             fullWidth
             variant="outlined"
-            name="category"
-            value={updatedProduct.category}
+            name="kategori"
+            value={updatedProduct.kategori}
             onChange={handleChange}
             sx={{
               "& .MuiOutlinedInput-root": {
-                backgroundColor: "#ffffff" // Ganti dengan warna putih yang Anda inginkan
+                backgroundColor: "#ffffff"
               },
               "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
                 borderColor: "#00000"
@@ -111,34 +154,36 @@ const EditProduct = ({ products, updateProduct }) => {
             }}
           >
             <MenuItem value="Elektronik">Elektronik</MenuItem>
-            <MenuItem value="Fashion">Fashion</MenuItem>
+            <MenuItem value="Bahan Baku">Bahan Baku</MenuItem>
+            <MenuItem value="Bahan Unik">Bahan Unik</MenuItem>
             <MenuItem value="Makanan">Makanan</MenuItem>
+            <MenuItem value="Minuman">Minuman</MenuItem>
+            <MenuItem value="Kosmetik">Kosmetik</MenuItem>
           </TextField>
         </Grid>
         <Grid item xs={6}>
-        <p>Harga</p>
+          <p>Harga</p>
           <TextField
             margin="dense"
             label=""
             type="number"
             fullWidth
             variant="outlined"
-            name="price"
-            value={updatedProduct.price}
+            name="harga"
+            value={updatedProduct.harga}
             onChange={handleChange}
             sx={{
               "& .MuiOutlinedInput-root": {
-                backgroundColor: "#ffffff" // Ganti dengan warna putih yang Anda inginkan
+                backgroundColor: "#ffffff"
               },
               "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
                 borderColor: "#00000"
               }
             }}
-
           />
         </Grid>
         <Grid item xs={6}>
-        <p>Stok Barang</p>
+          <p>Stok Barang</p>
           <TextField
             margin="dense"
             label=""
@@ -150,7 +195,7 @@ const EditProduct = ({ products, updateProduct }) => {
             onChange={handleChange}
             sx={{
               "& .MuiOutlinedInput-root": {
-                backgroundColor: "#ffffff" // Ganti dengan warna putih yang Anda inginkan
+                backgroundColor: "#ffffff"
               },
               "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
                 borderColor: "#00000"
@@ -159,19 +204,19 @@ const EditProduct = ({ products, updateProduct }) => {
           />
         </Grid>
         <Grid item xs={6}>
-        <p>Satuan Barang</p>
+          <p>Satuan Barang</p>
           <TextField
             margin="dense"
             label=""
             select
             fullWidth
             variant="outlined"
-            name="unit"
-            value={updatedProduct.unit}
+            name="satuan"
+            value={updatedProduct.satuan}
             onChange={handleChange}
             sx={{
               "& .MuiOutlinedInput-root": {
-                backgroundColor: "#ffffff" // Ganti dengan warna putih yang Anda inginkan
+                backgroundColor: "#ffffff"
               },
               "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
                 borderColor: "#00000"
@@ -180,43 +225,57 @@ const EditProduct = ({ products, updateProduct }) => {
           >
             <MenuItem value="Pcs">Pcs</MenuItem>
             <MenuItem value="Kg">Kg</MenuItem>
+            <MenuItem value="Kaleng">Kaleng</MenuItem>
+            <MenuItem value="Butir">Butir</MenuItem>
+            <MenuItem value="Dus">Dus</MenuItem>
+            <MenuItem value="Box">Box</MenuItem>
+            <MenuItem value="Peti">Peti</MenuItem>
           </TextField>
         </Grid>
         <Grid item xs={6}>
-        <p>Status</p>
+          <p>Status</p>
           <TextField
             margin="dense"
             label=""
             select
             fullWidth
             variant="outlined"
-            name="info"
-            value={updatedProduct.info}
+            name="status"
+            value={updatedProduct.status}
             onChange={handleChange}
             sx={{
               "& .MuiOutlinedInput-root": {
-                backgroundColor: "#ffffff" // Ganti dengan warna putih yang Anda inginkan
+                backgroundColor: "#ffffff"
               },
               "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
                 borderColor: "#00000"
               }
             }}
           >
-            <MenuItem value="Tersedia">Tersedia</MenuItem>
-            <MenuItem value="Habis">Habis</MenuItem>
+            <MenuItem value="Available">Tersedia</MenuItem>
+            <MenuItem value="Out of Stock">Kosong</MenuItem>
           </TextField>
         </Grid>
-      </Grid>
-      <Grid container spacing={2} alignItems="center" style={{ marginTop: '16px' }}>
-        <Grid item>
-          <Button onClick={() => window.history.back()} color="secondary">
-            Batal
+        <Grid item xs={12}>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleSave}
+            sx={{
+              mt: 2,
+              backgroundColor: '#1976d2',
+              '&:hover': {
+                backgroundColor: '#1565c0',
+              },
+            }}
+          >
+            Simpan Perubahan
           </Button>
-        </Grid>
-        <Grid item>
-          <Button onClick={handleSave} color="primary" variant="contained">
-            Simpan
-          </Button>
+          {error && (
+            <Typography color="error" variant="body2" sx={{ mt: 2 }}>
+              {error}
+            </Typography>
+          )}
         </Grid>
       </Grid>
     </Container>

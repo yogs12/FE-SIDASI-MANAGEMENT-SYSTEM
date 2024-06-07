@@ -1,20 +1,21 @@
-// src/components/AddProduct.js
 import React, { useState } from 'react';
 import { TextField, Button, Snackbar, Alert, Grid, MenuItem, Typography, Container } from '@mui/material';
-import './AddProduct.css'; 
+import { useNavigate } from 'react-router-dom';
+import './AddProduct.css';
 
-const AddProduct = ({ addProduct }) => {
+const AddProduct = () => {
   const [newProduct, setNewProduct] = useState({
-    name: '',
-    category: '',
-    price: '',
+    nama_produk: '',
+    kategori: '',
+    harga: '',
     stok: '',
-    unit: '',
-    info: '',
-    photo: null,
-    photoURL: ''
+    satuan: '',
+    status: '',
+    foto_produk: null,
+    fotoURL: ''
   });
   const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -28,25 +29,49 @@ const AddProduct = ({ addProduct }) => {
     const file = e.target.files[0];
     setNewProduct((prevProduct) => ({
       ...prevProduct,
-      photo: file,
-      photoURL: URL.createObjectURL(file)
+      foto_produk: file,
+      fotoURL: URL.createObjectURL(file)
     }));
   };
 
-  const handleSave = () => {
-    addProduct(newProduct);
-    setSnackbarOpen(true);
-    // Reset form after saving
-    setNewProduct({
-      name: '',
-      category: '',
-      price: '',
-      stok: '',
-      unit: '',
-      info: '',
-      photo: null,
-      photoURL: ''
-    });
+  const handleSave = async () => {
+    try {
+      const formData = new FormData();
+      Object.keys(newProduct).forEach(key => {
+        formData.append(key, newProduct[key]);
+      });
+
+      const response = await fetch('http://localhost:3000/products/produks', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (response.ok) {
+        setSnackbarOpen(true);
+
+        // Reset form after saving
+        setNewProduct({
+          nama_produk: '',
+          kategori: '',
+          harga: '',
+          stok: '',
+          satuan: '',
+          status: '',
+          foto_produk: null,
+          fotoURL: ''
+        });
+
+        // Wait for snackbar to show
+        setTimeout(() => {
+          navigate('/admin/produk');
+        }, 2000); // 2 seconds delay before navigating
+      } else {
+        console.error('Error adding product:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error adding product:', error);
+      // Handle error (optional)
+    }
   };
 
   const handleSnackbarClose = (event, reason) => {
@@ -69,8 +94,8 @@ const AddProduct = ({ addProduct }) => {
             type="text"
             fullWidth
             variant="outlined"
-            name="name"
-            value={newProduct.name}
+            name="nama_produk"
+            value={newProduct.nama_produk}
             onChange={handleChange}
           />
         </Grid>
@@ -84,8 +109,8 @@ const AddProduct = ({ addProduct }) => {
               onChange={handleFileChange}
             />
           </Button>
-          {newProduct.photoURL && (
-            <img src={newProduct.photoURL} alt="Product Preview" className="photo-preview" />
+          {newProduct.fotoURL && (
+            <img src={newProduct.fotoURL} alt="Product Preview" className="photo-preview" />
           )}
         </Grid>
         <Grid item xs={12}>
@@ -95,13 +120,16 @@ const AddProduct = ({ addProduct }) => {
             select
             fullWidth
             variant="outlined"
-            name="category"
-            value={newProduct.category}
+            name="kategori"
+            value={newProduct.kategori}
             onChange={handleChange}
           >
-            <MenuItem value="Elektronik">Elektronik</MenuItem>
-            <MenuItem value="Fashion">Fashion</MenuItem>
+           <MenuItem value="Elektronik">Elektronik</MenuItem>
+            <MenuItem value="Bahan Baku">Bahan Baku</MenuItem>
+            <MenuItem value="Bahan Unik">Bahan Unik</MenuItem>
             <MenuItem value="Makanan">Makanan</MenuItem>
+            <MenuItem value="Minuman">Minuman</MenuItem>
+            <MenuItem value="Kosmetik">Kosmetik</MenuItem>
           </TextField>
         </Grid>
         <Grid item xs={6}>
@@ -111,8 +139,8 @@ const AddProduct = ({ addProduct }) => {
             type="number"
             fullWidth
             variant="outlined"
-            name="price"
-            value={newProduct.price}
+            name="harga"
+            value={newProduct.harga}
             onChange={handleChange}
           />
         </Grid>
@@ -135,12 +163,17 @@ const AddProduct = ({ addProduct }) => {
             select
             fullWidth
             variant="outlined"
-            name="unit"
-            value={newProduct.unit}
+            name="satuan"
+            value={newProduct.satuan}
             onChange={handleChange}
           >
             <MenuItem value="Pcs">Pcs</MenuItem>
             <MenuItem value="Kg">Kg</MenuItem>
+            <MenuItem value="Kaleng">Kaleng</MenuItem>
+            <MenuItem value="Butir">Butir</MenuItem>
+            <MenuItem value="Dus">Dus</MenuItem>
+            <MenuItem value="Box">Box</MenuItem>
+            <MenuItem value="Peti">Peti</MenuItem>
           </TextField>
         </Grid>
         <Grid item xs={6}>
@@ -150,12 +183,12 @@ const AddProduct = ({ addProduct }) => {
             select
             fullWidth
             variant="outlined"
-            name="info"
-            value={newProduct.info}
+            name="status"
+            value={newProduct.status}
             onChange={handleChange}
           >
             <MenuItem value="Tersedia">Tersedia</MenuItem>
-            <MenuItem value="Habis">Habis</MenuItem>
+            <MenuItem value="Kosong">Kosong</MenuItem>
           </TextField>
         </Grid>
       </Grid>
