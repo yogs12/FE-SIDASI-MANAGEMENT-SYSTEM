@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { TextField, Button, MenuItem, Grid, Typography, Container } from '@mui/material';
+import { TextField, Button, MenuItem, Grid, Typography, Container, Box } from '@mui/material';
 import axios from 'axios';
 import './EditProduct.css';
 
@@ -255,27 +255,19 @@ const EditProduct = ({ updateProduct }) => {
             <MenuItem value="Available">Tersedia</MenuItem>
             <MenuItem value="Out of Stock">Kosong</MenuItem>
           </TextField>
-        </Grid>
-        <Grid item xs={12}>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={handleSave}
-            sx={{
-              mt: 2,
-              backgroundColor: '#1976d2',
-              '&:hover': {
-                backgroundColor: '#1565c0',
-              },
-            }}
-          >
-            Simpan Perubahan
+          </Grid>
+      </Grid>
+      <Grid container spacing={2} alignItems="center" style={{ marginTop: '16px' }}>
+        <Grid item>
+          <Button onClick={() => window.history.back()} color
+      ="error" variant="contained">
+            Batal
           </Button>
-          {error && (
-            <Typography color="error" variant="body2" sx={{ mt: 2 }}>
-              {error}
-            </Typography>
-          )}
+        </Grid>
+        <Grid item>
+          <Button onClick={handleSave} color="primary" variant="contained">
+            Simpan
+          </Button>
         </Grid>
       </Grid>
     </Container>

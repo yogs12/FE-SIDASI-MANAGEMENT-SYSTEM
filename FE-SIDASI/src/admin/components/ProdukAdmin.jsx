@@ -59,6 +59,7 @@ const ProdukAdmin = () => {
 
   return (
     <div>
+      <h1>Produk Admin</h1>
       <div className="search-add-container">
         <TextField
           className="search-input"
@@ -129,7 +130,7 @@ const ProdukAdmin = () => {
           Apakah Anda yakin ingin menghapus produk {productToDelete?.nama_produk}?
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleDeleteDialogClose} color="secondary">
+          <Button onClick={handleDeleteDialogClose} color="primary" variant="contained">
             Batal
           </Button>
           <Button onClick={handleDeleteProduct} color

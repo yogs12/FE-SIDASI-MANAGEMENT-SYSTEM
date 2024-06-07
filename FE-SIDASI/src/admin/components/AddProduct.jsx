@@ -194,7 +194,8 @@ const AddProduct = () => {
       </Grid>
       <Grid container spacing={2} alignItems="center" style={{ marginTop: '16px' }}>
         <Grid item>
-          <Button onClick={() => window.history.back()} color="secondary">
+          <Button onClick={() => window.history.back()} color
+      ="error" variant="contained">
             Batal
           </Button>
         </Grid>
