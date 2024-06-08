@@ -68,6 +68,19 @@ const PesananAdmin = () => {
     }
   };
 
+  const getStatusStyle = (status) => {
+    switch (status) {
+      case 'Proses':
+        return { color: 'red' };
+      case 'Dikemas':
+        return { color: 'orange' };
+      case 'Selesai':
+        return { color: 'green' };
+      default:
+        return {};
+    }
+  };
+
   return (
     <div>
       <h1>Pesanan</h1>
@@ -98,10 +111,11 @@ const PesananAdmin = () => {
                   <Select
                     value={order.status_pembayaran}
                     onChange={(event) => handleStatusChange(event, order)}
+                    style={getStatusStyle(order.status_pembayaran)}
                   >
-                    <MenuItem value="Proses">Proses</MenuItem>
-                    <MenuItem value="Dikemas">Dikemas</MenuItem>
-                    <MenuItem value="Selesai">Selesai</MenuItem>
+                    <MenuItem value="Proses" style={{ color: 'red' }}>Proses</MenuItem>
+                    <MenuItem value="Dikemas" style={{ color: 'orange' }}>Dikemas</MenuItem>
+                    <MenuItem value="Selesai" style={{ color: 'green' }}>Selesai</MenuItem>
                   </Select>
                 </TableCell>
                 <TableCell>
