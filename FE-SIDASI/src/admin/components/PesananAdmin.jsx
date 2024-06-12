@@ -105,7 +105,7 @@ const PesananAdmin = () => {
                 <TableCell>{index + 1}</TableCell>
                 <TableCell>{order.id_booking}</TableCell>
                 <TableCell>{order.id_user}</TableCell>
-                <TableCell>{order.nama_user}</TableCell>
+                <TableCell>{order.nama}</TableCell>
                 <TableCell>{order.tanggal_booking}</TableCell>
                 <TableCell>
                   <Select
@@ -159,7 +159,11 @@ const PesananAdmin = () => {
       >
         <DialogTitle>Bukti Pembayaran</DialogTitle>
         <DialogContent>
-          {paymentProofImage && <img src={paymentProofImage} alt="Bukti Pembayaran" style={{ width: '100%' }} />}
+          {paymentProofImage ? (
+            <img src={`http://localhost:3000${paymentProofImage}`} alt="Bukti Pembayaran" style={{ width: '100%' }} />
+          ) : (
+            <p>Gambar bukti pembayaran tidak tersedia.</p>
+          )}
         </DialogContent>
         <DialogActions>
           <Button onClick={handlePaymentProofDialogClose} color="primary">

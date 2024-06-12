@@ -8,57 +8,39 @@ const PelangganAdmin = () => {
   const [customers, setCustomers] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredCustomers, setFilteredCustomers] = useState([]);
-
+ 
   useEffect(() => {
     const fetchCustomers = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/customers'); // Update the URL with the correct endpoint
-        setCustomers(response.data);
-        setFilteredCustomers(response.data);
+        const response = await axios.get('http://localhost:3000/profils/profils');
+        if (response.data && response.data.status) {
+          const responseData = response.data.data;
+          const customersArray = Array.isArray(responseData) ? responseData : [responseData];
+          setCustomers(customersArray);
+          setFilteredCustomers(customersArray);
+        } else {
+          console.error('Error fetching customers: Data received is not in the expected format');
+          console.log(response.data); // Tambahkan log untuk melihat respons yang diterima
+        }
       } catch (error) {
         console.error('Error fetching customers:', error);
-        // Static data for demonstration
-        const staticCustomers = [
-          {
-            id: 1,
-            idPelanggan: '675732344',
-            foto: '/path/to/foto1.jpg',
-            nama: 'Siti Suminingsih',
-            nomorHandphone: '0812-3456-7890',
-            alamat: 'Jl.Dieng KM 12, Mojotengah, Wonosobo'
-          },
-          {
-            id: 2,
-            idPelanggan: '695732344',
-            foto: '/path/to/foto2.jpg',
-            nama: 'Narti Ayu Laksmini',
-            nomorHandphone: '0856-7890-1234',
-            alamat: 'Jl.A Yani No.23, Wonosobo'
-          },
-          {
-            id: 3,
-            idPelanggan: '685732344',
-            foto: '/path/to/foto3.jpg',
-            nama: 'Bramasta aditya',
-            nomorHandphone: '0821-2345-6789',
-            alamat: 'Jl.Ahmad Dahlan,No.29 Wonosobo'
-          },
-          {
-            id: 4,
-            idPelanggan: '685732349',
-            foto: '/path/to/foto4.jpg',
-            nama: 'Afro Pratama',
-            nomorHandphone: '0878-1234-5678',
-            alamat: 'Puntuksari, Selomerto, Wonosobo'
-          }
-        ];
-        setCustomers(staticCustomers);
-        setFilteredCustomers(staticCustomers);
+        console.log(error.response.data); // Tambahkan log untuk melihat pesan kesalahan dari server
       }
     };
-
+  
     fetchCustomers();
   }, []);
+  
+  const handleDeleteCustomer = async (id) => {
+    try {
+      await axios.delete(`http://localhost:3000/profils/profils/${id}`);
+      // Hapus pelanggan dari state setelah berhasil dihapus di backend
+      setCustomers(customers.filter(customer => customer.id_profil !== id));
+      setFilteredCustomers(filteredCustomers.filter(customer => customer.id_profil !== id));
+    } catch (error) {
+      console.error('Error deleting customer:', error);
+    }
+  };
 
   useEffect(() => {
     setFilteredCustomers(
@@ -70,19 +52,19 @@ const PelangganAdmin = () => {
 
   return (
     <div>
-      <h1>Pelanggan Admin</h1>
+      <h1>Pelanggan </h1>
       <div className="search-add-container">
         <TextField
-        className="search-input"
-        label="Search"
-        variant="outlined"
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-        InputLabelProps={{
-          style: { textAlign: 'center', fontSize: '14px' }
-        }}
-      />
-    </div>
+          className="search-input"
+          label="Search"
+          variant="outlined"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          InputLabelProps={{
+            style: { textAlign: 'center', fontSize: '14px' }
+          }}
+        />
+      </div>
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
@@ -98,20 +80,20 @@ const PelangganAdmin = () => {
           </TableHead>
           <TableBody>
             {filteredCustomers.map((customer, index) => (
-              <TableRow key={customer.id}>
+              <TableRow key={customer.id_profil}>
                 <TableCell>{index + 1}</TableCell>
-                <TableCell>{customer.idPelanggan}</TableCell>
+                <TableCell>{customer.id_user}</TableCell>
                 <TableCell>
-                  <img src={customer.foto} alt={customer.nama} style={{ width: '50px', height: '50px', borderRadius: '50%' }} />
+                  <img src={`http://localhost:3000${customer.foto}`} alt={customer.foto} style={{ width: '50px', height: '50px', borderRadius: '50%' }} />
                 </TableCell>
                 <TableCell>{customer.nama}</TableCell>
-                <TableCell>{customer.nomorHandphone}</TableCell>
+                <TableCell>{customer.no_hp}</TableCell>
                 <TableCell>{customer.alamat}</TableCell>
                 <TableCell>
                   <IconButton aria-label="view" style={{ marginRight: '5px' }}>
                     <FontAwesomeIcon icon={faEye} />
                   </IconButton>
-                  <IconButton aria-label="delete">
+                  <IconButton aria-label="delete" onClick={() => handleDeleteCustomer(customer.id_profil)}>
                     <FontAwesomeIcon icon={faTrash} />
                   </IconButton>
                 </TableCell>

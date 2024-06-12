@@ -14,7 +14,7 @@ const TransaksiAdmin = () => {
     // Fetch orders from the backend
     const fetchOrders = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/bookings/bookings');
+        const response = await axios.get('http://localhost:3000/transaksis/transaksi'); // Mengganti URL
         setOrders(response.data.data);
       } catch (error) {
         console.error('Error fetching orders:', error);
@@ -36,8 +36,8 @@ const TransaksiAdmin = () => {
 
   const handleDeleteOrder = async () => {
     try {
-      await axios.delete(`http://localhost:3000/bookings/bookings/${orderToDelete.id_booking}`);
-      setOrders(orders.filter((order) => order.id_booking !== orderToDelete.id_booking));
+      await axios.delete(`http://localhost:3000/transaksis/transaksi/${orderToDelete.id_transaksi}`); // Mengganti URL
+      setOrders(orders.filter((order) => order.id_transaksi !== orderToDelete.id_transaksi));
       handleDeleteDialogClose();
     } catch (error) {
       console.error('Error deleting order:', error);
@@ -47,10 +47,10 @@ const TransaksiAdmin = () => {
   const handleStatusChange = async (event, order) => {
     const newStatus = event.target.value;
     try {
-      await axios.put(`http://localhost:3000/bookings/bookings/${order.id_booking}`, {
+      await axios.put(`http://localhost:3000/transaksis/transaksi/${order.id_transaksi}`, {
         status_pembayaran: newStatus
       });
-      setOrders(orders.map((o) => (o.id_booking === order.id_booking ? { ...o, status_pembayaran: newStatus } : o)));
+      setOrders(orders.map((o) => (o.id_transaksi === order.id_transaksi ? { ...o, status_pembayaran: newStatus } : o)));
     } catch (error) {
       console.error('Error updating order status:', error);
     }
@@ -59,18 +59,33 @@ const TransaksiAdmin = () => {
   const handleValidationChange = async (event, order) => {
     const newValidationStatus = event.target.value;
     try {
-      await axios.put(`http://localhost:3000/bookings/bookings/${order.id_booking}`, {
+      await axios.put(`http://localhost:3000/transaksis/transaksi/${order.id_transaksi}`, {
         status_validasi: newValidationStatus
       });
-      setOrders(orders.map((o) => (o.id_booking === order.id_booking ? { ...o, status_validasi: newValidationStatus } : o)));
+      setOrders(orders.map((o) => (o.id_transaksi === order.id_transaksi ? { ...o, status_validasi: newValidationStatus } : o)));
     } catch (error) {
       console.error('Error updating validation status:', error);
     }
   };
 
+  const getStatusStyle = (status) => {
+    switch (status) {
+      case 'Proses':
+        return { color: 'red' };
+      case 'Dikemas':
+        return { color: 'orange' };
+      case 'Selesai':
+        return { color: 'green' };
+      case 'Belum':
+        return { color: 'red' };
+      default:
+        return {};
+    }
+  };
+
   return (
     <div>
-      <h1>Transaksi Admin</h1>
+      <h1>Transaksi</h1>
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
@@ -80,29 +95,29 @@ const TransaksiAdmin = () => {
               <TableCell>ID Pengguna</TableCell>
               <TableCell>Nama Pengguna</TableCell>
               <TableCell>Tanggal Booking</TableCell>
-              <TableCell>Status</TableCell>
-              <TableCell>Validasi</TableCell>
+              <TableCell>Status Pembayaran</TableCell>
+              <TableCell>Status Validasi</TableCell>
               <TableCell>Detail Barang</TableCell>
               <TableCell>Aksi</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {orders.map((order, index) => (
-              <TableRow key={order.id_booking}>
+              <TableRow key={order.id_transaksi}>
                 <TableCell>{index + 1}</TableCell>
-                <TableCell>{order.id_booking}</TableCell>
+                <TableCell>{order.id_transaksi}</TableCell>
                 <TableCell>{order.id_user}</TableCell>
-                <TableCell>{order.nama_user}</TableCell>
+                <TableCell>{order.nama}</TableCell>
                 <TableCell>{order.tanggal_booking}</TableCell>
-                <TableCell>{order.status_pembayaran}  </TableCell>
+                <TableCell> {order.status_pembayaran} </TableCell>
                 <TableCell>
                   <Select
-                    value={order.status_validasi || "Belum Valid"}
+                    value={order.validasi}
                     onChange={(event) => handleValidationChange(event, order)}
+                    style={getStatusStyle(order.validasi)}
                   >
-                    <MenuItem value="Belum Valid">Belum Valid</MenuItem>
-                    <MenuItem value="Valid">Valid</MenuItem>
-                    <MenuItem value="Tidak Valid">Tidak Valid</MenuItem>
+                    <MenuItem value="Belum" style={{ color: 'red' }}>Belum</MenuItem>
+                    <MenuItem value="Selesai" style={{ color: 'green' }}>Selesai</MenuItem>
                   </Select>
                 </TableCell>
                 <TableCell>
@@ -125,7 +140,7 @@ const TransaksiAdmin = () => {
       >
         <DialogTitle>Konfirmasi Hapus Pesanan</DialogTitle>
         <DialogContent>
-          Apakah Anda yakin ingin menghapus pesanan dengan ID {orderToDelete?.id_booking}?
+          Apakah Anda yakin ingin menghapus pesanan dengan ID {orderToDelete?.id_transaksi}?
         </DialogContent>
         <DialogActions>
           <Button onClick={handleDeleteDialogClose} color="primary" variant='contained'>

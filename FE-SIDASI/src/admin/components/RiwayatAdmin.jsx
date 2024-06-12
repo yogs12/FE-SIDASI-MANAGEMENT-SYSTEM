@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, Dialog, DialogTitle, DialogContent, DialogActions, IconButton, TextField } from '@mui/material';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, Dialog, DialogTitle, DialogContent, DialogActions, Select, MenuItem, IconButton } from '@mui/material';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -7,8 +7,6 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
 const RiwayatAdmin = () => {
   const [orders, setOrders] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [filteredOrders, setFilteredOrders] = useState([]);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [orderToDelete, setOrderToDelete] = useState(null);
 
@@ -16,7 +14,7 @@ const RiwayatAdmin = () => {
     // Fetch orders from the backend
     const fetchOrders = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/bookings/bookings');
+        const response = await axios.get('http://localhost:3000/riwayats/riwayat');
         setOrders(response.data.data);
       } catch (error) {
         console.error('Error fetching orders:', error);
@@ -25,14 +23,6 @@ const RiwayatAdmin = () => {
 
     fetchOrders();
   }, []);
-
-  useEffect(() => {
-    setFilteredOrders(
-      orders.filter((order) =>
-        order.nama_user.toLowerCase().includes(searchTerm.toLowerCase())
-      )
-    );
-  }, [searchTerm, orders]);
 
   const handleDeleteDialogOpen = (order) => {
     setOrderToDelete(order);
@@ -46,8 +36,8 @@ const RiwayatAdmin = () => {
 
   const handleDeleteOrder = async () => {
     try {
-      await axios.delete(`http://localhost:3000/bookings/bookings/${orderToDelete.id_booking}`);
-      setOrders(orders.filter((order) => order.id_booking !== orderToDelete.id_booking));
+      await axios.delete(`http://localhost:3000/riwayats/riwayat/${orderToDelete.id_riwayat}`);
+      setOrders(orders.filter((order) => order.id_riwayat !== orderToDelete.id_riwayat));
       handleDeleteDialogClose();
     } catch (error) {
       console.error('Error deleting order:', error);
@@ -57,10 +47,10 @@ const RiwayatAdmin = () => {
   const handleStatusChange = async (event, order) => {
     const newStatus = event.target.value;
     try {
-      await axios.put(`http://localhost:3000/bookings/bookings/${order.id_booking}`, {
-        status_pembayaran: newStatus
+      await axios.put(`http://localhost:3000/riwayats/riwayat/${order.id_riwayat}`, {
+        status: newStatus
       });
-      setOrders(orders.map((o) => (o.id_booking === order.id_booking ? { ...o, status_pembayaran: newStatus } : o)));
+      setOrders(orders.map((o) => (o.id_riwayat === order.id_riwayat ? { ...o, status: newStatus } : o)));
     } catch (error) {
       console.error('Error updating order status:', error);
     }
@@ -68,49 +58,37 @@ const RiwayatAdmin = () => {
 
   return (
     <div>
-      <h1>Riwayat Admin</h1>
-      <div className="search-add-container">
-        <TextField
-          className="search-input"
-          label="Search"
-          variant="outlined"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          InputLabelProps={{
-            style: { textAlign: 'center', fontSize: '14px' }
-          }}
-        />
-      </div>
+      <h1>Riwayat</h1>
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
             <TableRow>
               <TableCell>No</TableCell>
-              <TableCell>ID Pesanan</TableCell>
+              <TableCell>ID Riwayat</TableCell>
               <TableCell>ID Pengguna</TableCell>
               <TableCell>Nama Pengguna</TableCell>
-              <TableCell>Tanggal Booking</TableCell>
+              <TableCell>Tanggal</TableCell>
               <TableCell>Status</TableCell>
               <TableCell>Validasi</TableCell>
-              <TableCell>Detail Barang</TableCell>
+              <TableCell>Detail</TableCell>
               <TableCell>Aksi</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {filteredOrders.map((order, index) => (
-              <TableRow key={order.id_booking}>
+            {orders.map((order, index) => (
+              <TableRow key={order.id_riwayat}>
                 <TableCell>{index + 1}</TableCell>
-                <TableCell>{order.id_booking}</TableCell>
+                <TableCell>{order.id_riwayat}</TableCell>
                 <TableCell>{order.id_user}</TableCell>
-                <TableCell>{order.nama_user}</TableCell>
+                <TableCell>{order.nama}</TableCell>
                 <TableCell>{order.tanggal_booking}</TableCell>
                 <TableCell>{order.status_pembayaran}</TableCell>
-                <TableCell>{order.status_validasi || "Belum Valid"}</TableCell>
+                <TableCell>{order.validasi}</TableCell>
                 <TableCell>
                   <Link to={`/admin/pesanan/detail/${order.id_booking}`}>Detail</Link>
                 </TableCell>
                 <TableCell>
-                  <IconButton onClick={() => handleDeleteDialogOpen(order)}>
+                  <IconButton onClick={() => handleDeleteDialogOpen(order)} >
                     <FontAwesomeIcon icon={faTrash} />
                   </IconButton>
                 </TableCell>
@@ -120,16 +98,19 @@ const RiwayatAdmin = () => {
         </Table>
       </TableContainer>
 
-      <Dialog open={deleteDialogOpen} onClose={handleDeleteDialogClose}>
-        <DialogTitle>Konfirmasi Hapus Pesanan</DialogTitle>
+      <Dialog
+        open={deleteDialogOpen}
+        onClose={handleDeleteDialogClose}
+      >
+        <DialogTitle>Konfirmasi Hapus Riwayat</DialogTitle>
         <DialogContent>
-          Apakah Anda yakin ingin menghapus pesanan dengan ID {orderToDelete?.id_booking}?
+          Apakah Anda yakin ingin menghapus riwayat dengan ID {orderToDelete?.id_riwayat}?
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleDeleteDialogClose} color="primary" variant="contained">
+          <Button onClick={handleDeleteDialogClose} color="primary" variant='contained'>
             Batal
           </Button>
-          <Button onClick={handleDeleteOrder} color="error" variant="contained">
+          <Button onClick={handleDeleteOrder} color="error" variant='contained'>
             Hapus
           </Button>
         </DialogActions>

@@ -20,6 +20,7 @@ import RiwayatAdmin from "./admin/components/RiwayatAdmin";
 import PelangganAdmin from "./admin/components/PelangganAdmin";
 import DetailProduct from "./admin/components/DetailProduct";
 import EditProduct from "./admin/components/EditProduct";
+import BookingDetail from "./admin/components/BookingDetail";
 import './App.css';
 
 function App() {
@@ -33,15 +34,24 @@ function App() {
 
   const fetchProducts = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/products/produks'); // Ganti URL_BACKEND dengan URL backend yang sesuai
-      setProducts(response.data.data); // Sesuaikan dengan struktur data dari backend
+      const response = await axios.get('http://localhost:3000/products/produks');
+      setProducts(response.data.data);
     } catch (error) {
       console.error("Error fetching products", error);
     }
   };
 
-  const addProduct = (product) => {
-    setProducts([...products, { ...product, id: products.length + 1 }]);
+  const addProduct = async (product) => {
+    try {
+      const response = await axios.post('http://localhost:3000/products/produks', product, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      setProducts([...products, response.data.data]);
+    } catch (error) {
+      console.error("Error adding product", error);
+    }
   };
 
   const updateProduct = async (id, updatedProduct) => {
@@ -52,7 +62,7 @@ function App() {
         },
       });
       const updatedProducts = products.map(product =>
-        product.id === id ? response.data.data : product
+        product.id_produk === id ? response.data.data : product
       );
       setProducts(updatedProducts);
     } catch (error) {
@@ -62,20 +72,20 @@ function App() {
 
   const deleteProduct = async (id) => {
     try {
-      await axios.delete(`http://localhost:3000/products/${id}`); // Ganti URL_BACKEND dengan URL backend yang sesuai
-      setProducts(products.filter((product) => product.id !== parseInt(id)));
+      await axios.delete(`http://localhost:3000/products/produks/${id}`);
+      setProducts(products.filter((product) => product.id_produk !== id));
     } catch (error) {
       console.error("Error deleting product", error);
     }
   };
 
   const addToCart = (product) => {
-    const existingItem = cartItems.find((item) => item.id === product.id);
+    const existingItem = cartItems.find((item) => item.id === product.id_produk);
 
     if (existingItem) {
       setCartItems(
         cartItems.map((item) =>
-          item.id === product.id ? { ...item, qty: item.qty + 1 } : item
+          item.id === product.id_produk ? { ...item, qty: item.qty + 1 } : item
         )
       );
     } else {
@@ -84,14 +94,14 @@ function App() {
   };
 
   const decreaseQty = (product) => {
-    const existingItem = cartItems.find((item) => item.id === product.id);
+    const existingItem = cartItems.find((item) => item.id === product.id_produk);
 
     if (existingItem.qty === 1) {
-      setCartItems(cartItems.filter((item) => item.id !== product.id));
+      setCartItems(cartItems.filter((item) => item.id !== product.id_produk));
     } else {
       setCartItems(
         cartItems.map((item) =>
-          item.id === product.id ? { ...item, qty: item.qty - 1 } : item
+          item.id === product.id_produk ? { ...item, qty: item.qty - 1 } : item
         )
       );
     }
@@ -107,6 +117,7 @@ function App() {
           <Route path="produk/detail/:id" element={<DetailProduct />} />
           <Route path="produk/edit/:id" element={<EditProduct products={products} updateProduct={updateProduct} />} />
           <Route path="pesanan" element={<PesananAdmin orders={orders} />} /> {/* Tambahkan prop orders */}
+          <Route path="pesanan/detail/:id" element={<BookingDetail />} />
           <Route path="transaksi" element={<TransaksiAdmin />} />
           <Route path="riwayat" element={<RiwayatAdmin />} />
           <Route path="pelanggan" element={<PelangganAdmin />} />
@@ -117,7 +128,7 @@ function App() {
             <Routes>
               <Route path="/" element={
                 <Pages
-                  products={products} // Menggunakan produk yang diambil dari backend
+                  products={products}
                   addToCart={addToCart}
                 />
               } />

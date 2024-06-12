@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { TextField, Button, MenuItem, Grid, Typography, Container, Box } from '@mui/material';
+import { TextField, Button, MenuItem, Grid, Typography, Container } from '@mui/material';
 import axios from 'axios';
 import './EditProduct.css';
 
@@ -21,14 +21,16 @@ const EditProduct = ({ updateProduct }) => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetchProduct();
+    if (id) {
+      fetchProduct();
+    }
   }, [id]);
 
   const fetchProduct = async () => {
     try {
       const response = await axios.get(`http://localhost:3000/products/produks/${id}`);
-      if (response.data && response.data.data && response.data.data.length > 0) {
-        const product = response.data.data[0];
+      if (response.data && response.data.data) {
+        const product = response.data.data;
         setUpdatedProduct({
           ...product,
           fotoURL: `http://localhost:3000${product.foto_produk}`,
@@ -102,7 +104,6 @@ const EditProduct = ({ updateProduct }) => {
           <p>Nama Produk</p>
           <TextField
             margin="dense"
-            label=""
             type="text"
             fullWidth
             variant="outlined"
@@ -137,7 +138,6 @@ const EditProduct = ({ updateProduct }) => {
           <p>Kategori</p>
           <TextField
             margin="dense"
-            label=""
             select
             fullWidth
             variant="outlined"
@@ -165,7 +165,6 @@ const EditProduct = ({ updateProduct }) => {
           <p>Harga</p>
           <TextField
             margin="dense"
-            label=""
             type="number"
             fullWidth
             variant="outlined"
@@ -186,7 +185,6 @@ const EditProduct = ({ updateProduct }) => {
           <p>Stok Barang</p>
           <TextField
             margin="dense"
-            label=""
             type="number"
             fullWidth
             variant="outlined"
@@ -207,7 +205,6 @@ const EditProduct = ({ updateProduct }) => {
           <p>Satuan Barang</p>
           <TextField
             margin="dense"
-            label=""
             select
             fullWidth
             variant="outlined"
@@ -236,7 +233,6 @@ const EditProduct = ({ updateProduct }) => {
           <p>Status</p>
           <TextField
             margin="dense"
-            label=""
             select
             fullWidth
             variant="outlined"
@@ -255,12 +251,11 @@ const EditProduct = ({ updateProduct }) => {
             <MenuItem value="Available">Tersedia</MenuItem>
             <MenuItem value="Out of Stock">Kosong</MenuItem>
           </TextField>
-          </Grid>
+        </Grid>
       </Grid>
       <Grid container spacing={2} alignItems="center" style={{ marginTop: '16px' }}>
         <Grid item>
-          <Button onClick={() => window.history.back()} color
-      ="error" variant="contained">
+          <Button onClick={() => navigate(-1)} color="error" variant="contained">
             Batal
           </Button>
         </Grid>

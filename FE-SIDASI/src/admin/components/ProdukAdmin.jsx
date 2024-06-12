@@ -48,7 +48,7 @@ const ProdukAdmin = () => {
   const handleDeleteProduct = async () => {
     if (productToDelete) {
       try {
-        await axios.delete(`http://localhost:3000/products/produks/${productToDelete.id}`);
+        await axios.delete(`http://localhost:3000/products/produks/${productToDelete.id_produk}`);
         fetchProducts(); // Refresh the product list
         handleDeleteDialogClose();
       } catch (error) {
@@ -59,7 +59,7 @@ const ProdukAdmin = () => {
 
   return (
     <div>
-      <h1>Produk Admin</h1>
+      <h1>Produk</h1>
       <div className="search-add-container">
         <TextField
           className="search-input"
@@ -92,7 +92,7 @@ const ProdukAdmin = () => {
           </TableHead>
           <TableBody>
             {filteredProducts.map((product, index) => (
-              <TableRow key={product.id} className="table-row">
+              <TableRow key={product.id_produk} className="table-row">
                 <TableCell>{index + 1}</TableCell>
                 <TableCell>
                   <img src={`http://localhost:3000${product.foto_produk}`} alt={product.nama_produk} style={{ width: '50px', height: '50px' }} />
@@ -104,12 +104,12 @@ const ProdukAdmin = () => {
                 <TableCell>{product.satuan}</TableCell>
                 <TableCell>{product.status}</TableCell>
                 <TableCell>
-                  <Link to={`/admin/produk/detail/${product.id}`}> {/* Tautan detail produk */}
+                  <Link to={`/admin/produk/detail/${product.id_produk}`}>
                     <IconButton aria-label="detail" style={{ marginRight: '5px' }}>
                       <FontAwesomeIcon icon={faGauge} style={{ fontSize: '16px' }} />
                     </IconButton>
                   </Link>
-                  <Link to={`/admin/produk/edit/${product.id}`}>
+                  <Link to={`/admin/produk/edit/${product.id_produk}`}>
                     <IconButton aria-label="edit" style={{ marginRight: '5px' }}>
                       <FontAwesomeIcon icon={faEdit} style={{ fontSize: '16px' }} />
                     </IconButton>
@@ -133,14 +133,13 @@ const ProdukAdmin = () => {
           <Button onClick={handleDeleteDialogClose} color="primary" variant="contained">
             Batal
           </Button>
-          <Button onClick={handleDeleteProduct} color
-      ="error" variant="contained">
-      Hapus
-      </Button>
-      </DialogActions>
+          <Button onClick={handleDeleteProduct} color="error" variant="contained">
+            Hapus
+          </Button>
+        </DialogActions>
       </Dialog>
-      </div>
-      );
-      };
+    </div>
+  );
+};
 
-      export default ProdukAdmin;
+export default ProdukAdmin;
