@@ -19,7 +19,7 @@ const Cart = ({ cartItems, addToCart, decreaseQty, removeFromCart }) => {
   };
 
   const totalPrice = cartItems.reduce((price, item) => {
-    const product = products.find(product => product.id === item.id);
+    const product = products.find(product => product.id_produk === item.id_produk);
     return price + item.qty * (product ? product.harga : 0);
   }, 0);
 
@@ -31,13 +31,12 @@ const Cart = ({ cartItems, addToCart, decreaseQty, removeFromCart }) => {
     event.preventDefault();
     const formData = new FormData(event.target);
 
-    // Add id_bookings to the form data
     cartItems.forEach(item => {
       formData.append('id_bookings', item.id_bookings);
       formData.append('id_user', item.id_user);
       formData.append('nama_user', item.nama_user);
-      formData.append('tanggal_booking', new Date().toISOString().slice(0, 10)); // Example format
-      formData.append('status_pembayaran', 'pending'); // Example status
+      formData.append('tanggal_booking', new Date().toISOString().slice(0, 10));
+      formData.append('status_pembayaran', 'pending');
     });
 
     try {
@@ -63,10 +62,10 @@ const Cart = ({ cartItems, addToCart, decreaseQty, removeFromCart }) => {
         <div className="cart-details">
           {cartItems.length === 0 && <h1 className="no-items product">Tidak ada pesanan</h1>}
           {cartItems.map((item) => {
-            const product = products.find(product => product.id === item.id);
+            const product = products.find(product => product.id_produk === item.id_produk);
             const productQty = product ? product.harga * item.qty : 0;
             return (
-              <div className="cart-list product d_flex" key={item.id}>
+              <div className="cart-list product d_flex" key={item.id_produk}>
                 <div className="imgcart">
                   <img src={`http://localhost:3000/${item.foto_produk}`} alt="" />
                 </div>

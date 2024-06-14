@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./common/header/Header";
 import Pages from "./pages/Pages";
@@ -21,12 +21,17 @@ import PelangganAdmin from "./admin/components/PelangganAdmin";
 import DetailProduct from "./admin/components/DetailProduct";
 import EditProduct from "./admin/components/EditProduct";
 import BookingDetail from "./admin/components/BookingDetail";
+
+//auth
+import Login from "./auth/Login";
+import Register from "./auth/Register";
+import Verification from "./auth/Verification";
 import './App.css';
 
 function App() {
   const [products, setProducts] = useState([]);
   const [cartItems, setCartItems] = useState([]);
-  const [orders, setOrders] = useState([]); // Tambahkan state orders
+  const [orders, setOrders] = useState([]);
 
   useEffect(() => {
     fetchProducts();
@@ -80,12 +85,12 @@ function App() {
   };
 
   const addToCart = (product) => {
-    const existingItem = cartItems.find((item) => item.id === product.id_produk);
+    const existingItem = cartItems.find((item) => item.id_produk === product.id_produk);
 
     if (existingItem) {
       setCartItems(
         cartItems.map((item) =>
-          item.id === product.id_produk ? { ...item, qty: item.qty + 1 } : item
+          item.id_produk === product.id_produk ? { ...item, qty: item.qty + 1 } : item
         )
       );
     } else {
@@ -94,29 +99,36 @@ function App() {
   };
 
   const decreaseQty = (product) => {
-    const existingItem = cartItems.find((item) => item.id === product.id_produk);
+    const existingItem = cartItems.find((item) => item.id_produk === product.id_produk);
 
     if (existingItem.qty === 1) {
-      setCartItems(cartItems.filter((item) => item.id !== product.id_produk));
+      setCartItems(cartItems.filter((item) => item.id_produk !== product.id_produk));
     } else {
       setCartItems(
         cartItems.map((item) =>
-          item.id === product.id_produk ? { ...item, qty: item.qty - 1 } : item
+          item.id_produk === product.id_produk ? { ...item, qty: item.qty - 1 } : item
         )
       );
     }
   };
 
+  const removeFromCart = (product) => {
+    setCartItems(cartItems.filter((item) => item.id_produk !== product.id_produk));
+  };
+
   return (
     <Router>
       <Routes>
+      <Route path="/masuk" element={<Login />} />
+      <Route path="/daftar" element={<Register />} />
+      <Route path="/verifikasi" element={<Verification />} />
         <Route path="/admin/*" element={<AdminLayout />}>
           <Route path="beranda" element={<DashboardAdmin />} />
           <Route path="produk" element={<ProdukAdmin products={products} addProduct={addProduct} updateProduct={updateProduct} deleteProduct={deleteProduct} />} />
           <Route path="produk/add" element={<AddProduct addProduct={addProduct} />} />
           <Route path="produk/detail/:id" element={<DetailProduct />} />
           <Route path="produk/edit/:id" element={<EditProduct products={products} updateProduct={updateProduct} />} />
-          <Route path="pesanan" element={<PesananAdmin orders={orders} />} /> {/* Tambahkan prop orders */}
+          <Route path="pesanan" element={<PesananAdmin orders={orders} />} />
           <Route path="pesanan/detail/:id" element={<BookingDetail />} />
           <Route path="transaksi" element={<TransaksiAdmin />} />
           <Route path="riwayat" element={<RiwayatAdmin />} />
@@ -137,6 +149,7 @@ function App() {
                   cartItems={cartItems}
                   addToCart={addToCart}
                   decreaseQty={decreaseQty}
+                  removeFromCart={removeFromCart}
                 />
               } />
               <Route path="/Profil" element={<Profil />} />

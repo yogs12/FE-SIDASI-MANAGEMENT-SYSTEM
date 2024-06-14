@@ -1,144 +1,85 @@
-.container-fluid {
-  padding: 50px;
-  
-}
-
-.card {
-  border-radius: 20px; /* Membuat card menjadi lebih bulat */
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  width: 100%;
-  max-width: 600px;
-}
-
-.card h2 {
-  font-size: 18px;
-  margin-bottom: 20px;
-  border-bottom: 1px solid rgb(3 0 71 / 9%);
-  padding-bottom: 10px;
-  color: #030303;
-}
-
-.card-header {
-  border-bottom: none;
-  padding: 15px 20px;
-}
-
-.text-muted {
-  font-size: 14px;
-}
-
-.font-weight-bold {
-  font-weight: 700;
-}
-
-#progressbar {
-  margin: 0;
-  padding: 20px;
+.order-tracking {
   display: flex;
   justify-content: space-between;
-  list-style: none;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-#progressbar li {
+.order-progress {
+  display: flex;
+  flex-direction: column;
   flex: 1;
-  text-align: center;
-  position: relative;
-  font-size: 16px; /* Memperbesar ukuran teks langkah */
-  padding: 50px;
+  padding: 20px;
+  border-right: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  
+  margin-right: 20px;
 }
 
-#progressbar li::before {
-  content: "";
-  width: 20px; /* Memperbesar ukuran lingkaran langkah */
-  height: 20px; /* Memperbesar ukuran lingkaran langkah */
-  border: 2px solid #28a745;
-  border-radius: 50%;
-  background: #28a745;
-  position: absolute;
-  top: -10px; /* Menggeser lingkaran langkah ke atas */
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 1;
+.order-info {
+  margin-bottom: 20px;
 }
 
-#progressbar li::after {
-  content: "";
-  width: calc(100% + 4px); /* Menyesuaikan lebar garis langkah */
-  height: 1px; /* Mengurangi ketebalan garis langkah */
-  background: #adadad; /* Garis hitam tipis */
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 0;
+.progress-container {
+  flex: 1;
 }
 
-/* Step 1 - Merah */
-#progressbar li:nth-child(1).active::before {
-  border-color: #dc3545;
-  background: #dc3545;
-}
-
-/* Step 2 - Kuning */
-#progressbar li:nth-child(2).active::before {
-  border-color: #ffc107;
-  background: #ffc107;
-}
-
-/* Step 3 - Hijau */
-#progressbar li:nth-child(3).active::before {
-  border-color: #28a745;
-  background: #28a745;
-}
-
-/* Menyambung garis dengan warna hitam tipis */
-#progressbar li.active + li::after {
-  background:#adadad;;
-}
-
-.progress-circle {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%; /* Pastikan border-radius 50% */
-  display: inline-flex;
-  justify-content: center;
+.progress {
+  display: flex;
   align-items: center;
-  margin-top: 20px;
-  margin-right: 20px; /* Tambahkan jarak antara lingkaran dan deskripsi */
+  justify-content: space-between;
+}
+
+.circle {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
 }
 
 .red {
-  background-color: #dc3545; /* Warna Merah */
+  background-color: #d9534f;
 }
 
-.yellow {
-  background-color: #ffc107; /* Warna Kuning */
+.orange {
+  background-color: #f0ad4e;
 }
 
 .green {
-  background-color: #28a745; /* Warna Hijau */
+  background-color: #5cb85c;
 }
 
-.ml-sm-auto {
-  margin-left: auto;
+.line {
+  flex: 1;
+  height: 2px;
+  background-color: #ddd;
+  margin: 0 10px;
 }
 
-.text-right {
-  text-align: right;
-}
-
-.align-self-start {
-  align-self: flex-start; /* Menyelaraskan ke bagian atas container */
-}
-
-.progress-info {
+.progress-labels {
   display: flex;
-  align-items: center;
-  margin-bottom: 20px;
-  padding: 20px;
+  justify-content: space-between;
+  margin-top: 10px;
 }
 
-.progress-description {
-  font-size: 14px;
-  color: #6c757d;
+.process-info {
+  flex: 1;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.process-info p, h3 {
+  margin-bottom: 20px;
+}
+
+.process-info .circle {
+  display: inline-block;
+  margin-right: 10px;
+  vertical-align: middle;
 }

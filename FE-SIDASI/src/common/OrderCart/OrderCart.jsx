@@ -1,78 +1,40 @@
 import React from "react";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCog, faBox, faCheck } from '@fortawesome/free-solid-svg-icons';
 import "./OrderCart.css";
 
 function OrderCart() {
   return (
-    <div className="container-fluid my-5">
-      <div className="row">
-        <div className="col-md-6"> {/* Bagian kiri untuk Lacak Pesanan */}
-          <div className="card px-2">
-            <div className="card-header bg-white">
-              <div className="row justify-content-between">
-                <div className="col">
-                  <h2>Lacak Pesanan</h2>
-                  <p className="text-muted">
-                    ID Pesanan :{" "}
-                    <span className="font-weight-bold text-dark">1222528743</span>
-                  </p>
-                  <p className="text-muted">
-                    Pada Tanggal :{" "}
-                    <span className="font-weight-bold text-dark">
-                      12, Maret 2024
-                    </span>
-                  </p>
-                </div>
-              </div>
+    <div className="order-tracking">
+        <div className="order-progress">
+            <div className="order-info">
+                <h2>Lacak Pesanan</h2>
+                <p>Order ID <strong>12323244225</strong></p>
+                <p>Placed On <strong>17, Mei 2024</strong></p>
             </div>
-            <div className="row px-3">
-  <div className="col">
-    <ul className="tracking-list" id="progressbar"> {/* Tambahkan ID progressbar di sini */}
-      <li className="active" id="step1">
-        <i className="fas fa-cog"></i> PROSES
-      </li>
-      <li className="active text-center" id="step2">
-        <i className="fas fa-box"></i> DIKEMAS
-      </li>
-      <li className="text-muted text-right" id="step3">
-        <i className="fas fa-check"></i> SELESAI
-      </li>
-    </ul>
-  </div>
-</div>
-
-          </div>
+            <div className="progress-container">
+                <div className="progress">
+                    <div className="circle red"><FontAwesomeIcon icon={faCog} /></div>
+                    <span className="line"></span>
+                    <div className="circle orange"><FontAwesomeIcon icon={faBox} /></div>
+                    <span className="line"></span>
+                    <div className="circle green"><FontAwesomeIcon icon={faCheck} /></div>
+                </div>
+                <div className="progress-labels">
+                    <div>Proses</div>
+                    <div>Dikemas</div>
+                    <div>Selesai</div>
+                </div>
+            </div>
         </div>
-        <div className="col-md-6"> {/* Bagian kanan untuk Informasi Proses */}
-          <div className="card px-2 align-self-start"> {/* Gunakan align-self-start untuk menyelaraskan dengan bagian atas container */}
-            <div className="card-header bg-white">
-              <div className="row justify-content-between">
-                <div className="col">
-                  <h2>Informasi Proses</h2>
-                  <p className="text-muted">Pesanan Anda Sedang Kami Proses</p>
-                </div>
-              </div>
-            </div>
-            <div className="row px-3">
-              <div className="col">
-                <div className="progress-info">
-                  <div className="progress-circle red"></div>
-                  <p className="progress-description">Pesanan anda diperiksa</p>
-                </div>
-                <div className="progress-info">
-                  <div className="progress-circle yellow"></div>
-                  <p className="progress-description">Pesanan anda dikemas</p>
-                </div>
-                <div className="progress-info">
-                  <div className="progress-circle green"></div>
-                  <p className="progress-description">Pesanan anda bisa diambil</p>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div className="process-info">
+            <h3>Informasi Proses</h3>
+            <p><span className="circle red"></span> Pesanan anda sedang kami proses</p>
+            <p><span className="circle orange"></span> Pesanan anda sedang dikemas</p>
+            <p><span className="circle green"></span> Pesanan sudah selesai</p>
         </div>
-      </div>
     </div>
-  );
-}
+);
+};
 
 export default OrderCart;
