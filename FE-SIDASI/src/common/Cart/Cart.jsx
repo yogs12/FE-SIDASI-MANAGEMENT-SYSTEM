@@ -1,9 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import "./style.css";
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
+import { UserContext } from '../../auth/UserContext'; // Ensure this path is correct
 
 const Cart = ({ cartItems, addToCart, decreaseQty, removeFromCart }) => {
   const [products, setProducts] = useState([]);
+  const navigate = useNavigate();
+  const { user } = useContext(UserContext); // Get the user from context
 
   useEffect(() => {
     fetchProducts();
@@ -29,18 +33,31 @@ const Cart = ({ cartItems, addToCart, decreaseQty, removeFromCart }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const formData = new FormData(event.target);
+    const formData = new FormData();
+
+    if (!user || !user.id) {
+      alert("User not logged in");
+      return;
+    }
+
+    formData.append('id_user', user.id); // Use actual user ID from context
+    formData.append('tanggal_booking', new Date().toISOString().slice(0, 10));
+    formData.append('status_pembayaran', 'Pending');
 
     cartItems.forEach(item => {
-      formData.append('id_bookings', item.id_bookings);
-      formData.append('id_user', item.id_user);
-      formData.append('nama_user', item.nama_user);
-      formData.append('tanggal_booking', new Date().toISOString().slice(0, 10));
-      formData.append('status_pembayaran', 'pending');
+      formData.append('products[]', JSON.stringify({
+        id_produk: item.id_produk,
+        quantity: item.qty
+      }));
     });
 
+    const screenshot = event.target.elements.screenshot.files[0];
+    if (screenshot) {
+      formData.append('bukti_pembayaran', screenshot);
+    }
+
     try {
-      const response = await axios.post('http://localhost:3000/api/bookings', formData, {
+      const response = await axios.post('http://localhost:3000/bookings/bookings', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -48,11 +65,13 @@ const Cart = ({ cartItems, addToCart, decreaseQty, removeFromCart }) => {
 
       if (response.status === 201) {
         alert("Pesanan berhasil ditambahkan!");
+        navigate("/lacak-pesanan");
       } else {
         alert("Terjadi kesalahan saat menambahkan pesanan.");
       }
     } catch (error) {
       console.error("Error submitting order:", error);
+      alert("Terjadi kesalahan saat menambahkan pesanan.");
     }
   };
 

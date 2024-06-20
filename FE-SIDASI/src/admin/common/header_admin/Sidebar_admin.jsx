@@ -1,3 +1,4 @@
+// src/admin/common/header_admin/Sidebar_admin.jsx
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './Sidebar_admin.css';
@@ -43,7 +44,7 @@ const Sidebar_admin = ({ openSidebarToggle, OpenSidebar }) => {
           </Link>
         </li>
         <li className='nav-item'>
-          <Link to="/admin/keluar">
+          <Link to="/keluar">
             <i className="fa-solid fa-sign-out-alt"></i> Keluar
           </Link>
         </li>

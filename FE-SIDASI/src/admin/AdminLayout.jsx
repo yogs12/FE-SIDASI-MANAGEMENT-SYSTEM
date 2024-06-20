@@ -1,8 +1,9 @@
+// src/admin/AdminLayout.jsx
 import React, { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import Footer_admin from './common/footer_admin/Footer_admin';
 import Sidebar_admin from './common/header_admin/Sidebar_admin';
-import Head_admin from './common/header_admin/Head_admin'; // Corrected the import path
+import Head_admin from './common/header_admin/Head_admin';
 import './AdminLayout.css';
 
 const AdminLayout = () => {
@@ -20,11 +21,9 @@ const AdminLayout = () => {
           <Head_admin OpenSidebar={toggleSidebar} />
         </header>
         <main className="admin-main">
-          <Outlet />
+          <Outlet /> {/* This will render the child routes' content */}
         </main>
-        
-          <Footer_admin />
-        
+        <Footer_admin />
       </div>
     </div>
   );

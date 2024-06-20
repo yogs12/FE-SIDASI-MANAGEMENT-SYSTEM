@@ -1,54 +1,48 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+// src/common/header/Navbar.jsx
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useAuth } from '../../auth/AuthContext';
 
 const Navbar = () => {
-  // Toggle Menu
-  const [MobileMenu, setMobileMenu] = useState(false);
+  const [mobileMenu, setMobileMenu] = useState(false);
+  const { auth } = useAuth();
 
   return (
-    <>
-      <header className="header">
-        <div className="container d_flex">
-          <div className=""></div>
+    <header className="header">
+      <div className="container d_flex">
+        <div className=""></div>
 
-          <div className="navlink">
-            <ul
-              className={
-                MobileMenu
-                  ? "nav-links-MobileMenu"
-                  : "link f_flex capitalize"
-              }
-              onClick={() => setMobileMenu(false)}
-            >
-              <li>
-                <Link to="/">Beranda</Link>
-              </li>
-              <li>
-                <Link to="/lacak-pesanan">Lacak Pesanan</Link>
-              </li>
-              <li>
-                <Link to="/contact">Kontak</Link>
-              </li>
+        <div className="navlink">
+          <ul
+            className={mobileMenu ? 'nav-links-MobileMenu' : 'link f_flex capitalize'}
+            onClick={() => setMobileMenu(false)}
+          >
+            <li>
+              <Link to="/">Beranda</Link>
+            </li>
+            <li>
+              <Link to="/lacak-pesanan">Lacak Pesanan</Link>
+            </li>
+            <li>
+              <Link to="/contact">Kontak</Link>
+            </li>
+            {auth.user && auth.user.role === 'admin' && (
               <li>
                 <Link to="/admin/beranda">Admin</Link>
-                
               </li>
-            </ul>
+            )}
+          </ul>
 
-            <button
-              className="toggle"
-              onClick={() => setMobileMenu(!MobileMenu)}
-            >
-              {MobileMenu ? (
-                <i className="fas fa-times close home-btn"></i>
-              ) : (
-                <i className="fas fa-bars open"></i>
-              )}
-            </button>
-          </div>
+          <button className="toggle" onClick={() => setMobileMenu(!mobileMenu)}>
+            {mobileMenu ? (
+              <i className="fas fa-times close home-btn"></i>
+            ) : (
+              <i className="fas fa-bars open"></i>
+            )}
+          </button>
         </div>
-      </header>
-    </>
+      </div>
+    </header>
   );
 };
 
