@@ -1,12 +1,13 @@
+// src/auth/AdminRoute.jsx
 import React from 'react';
-import { Route, Navigate } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 import { useAuth } from './AuthContext';
 
-const AdminRoute = ({ element, ...rest }) => {
-  const { user } = useAuth();
+const AdminRoute = () => {
+  const { auth } = useAuth();
 
-  return user && user.isAdmin ? (
-    <Route {...rest} element={element} />
+  return auth.isAuthenticated && auth.user.role === 'admin' ? (
+    <Outlet />
   ) : (
     <Navigate to="/masuk" />
   );

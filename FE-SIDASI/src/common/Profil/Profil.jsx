@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import './Profil.css';
 
 function Profil() {
-    const [profile, setProfile] = useState(null); // State untuk menyimpan data profil
+    const [profils, setProfile] = useState(null); // State untuk menyimpan data profil
     const [loading, setLoading] = useState(true); // State untuk menangani loading
     const [error, setError] = useState(null); // State untuk menangani error
 
@@ -57,26 +57,26 @@ function Profil() {
                 <div className="left-box">
                     <img
                         className="profil-photo"
-                        src={profile.foto} // Menggunakan URL foto dari data profil
+                        src={profils.foto} // Menggunakan URL foto dari data profil
                         alt="profile"
                     />
                 </div>
                 <div className="right-box">
                     <div className="detail-item">
                         <label className="labels">Name</label>
-                        <p>{profile.nama}</p> {/* Menampilkan nama dari data profil */}
+                        <p>{profils.nama}</p> {/* Menampilkan nama dari data profil */}
                     </div>
                     <div className="detail-item">
                         <label className="labels">Phone Number</label>
-                        <p>{profile.no_hp}</p> {/* Menampilkan nomor hp dari data profil */}
+                        <p>{profils.no_hp}</p> {/* Menampilkan nomor hp dari data profil */}
                     </div>
                     <div className="detail-item">
                         <label className="labels">Address</label>
-                        <p>{profile.alamat}</p> {/* Menampilkan alamat dari data profil */}
+                        <p>{profils.alamat}</p> {/* Menampilkan alamat dari data profil */}
                     </div>
                     <div className="detail-item">
                         <label className="labels">Email</label>
-                        <p>{profile.email}</p> {/* Menampilkan email dari data profil */}
+                        <p>{profils.email}</p> {/* Menampilkan email dari data profil */}
                     </div>
                     <div className="text-center">
                         <Link to="/editprofil">

@@ -1,5 +1,6 @@
+// src/App.jsx
 import React, { useEffect, useState } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Outlet } from "react-router-dom";
 import Header from "./common/header/Header";
 import Pages from "./pages/Pages";
 import Profil from "./common/Profil/Profil";
@@ -8,9 +9,9 @@ import OrderCart from "./common/OrderCart/OrderCart";
 import EditProfil from "./common/Profil/EditProfil";
 import axios from 'axios';
 
-// Import komponen admin
-import AddProduct from "./admin/components/AddProduct";
+// Import admin components
 import AdminLayout from "./admin/AdminLayout";
+import AddProduct from "./admin/components/AddProduct";
 import DashboardAdmin from "./admin/components/DashboardAdmin";
 import ProdukAdmin from "./admin/components/ProdukAdmin";
 import PesananAdmin from "./admin/components/PesananAdmin";
@@ -126,38 +127,38 @@ function App() {
           <Routes>
             <Route path="/masuk" element={<Login />} />
             <Route path="/daftar" element={<Register />} />
-            <Route path="/admin/*" element={
-              <AdminRoute>
-                <AdminLayout />
-              </AdminRoute>
-            }>
-              <Route path="beranda" element={<DashboardAdmin />} />
-              <Route path="produk" element={<ProdukAdmin products={products} addProduct={addProduct} updateProduct={updateProduct} deleteProduct={deleteProduct} />} />
-              <Route path="produk/add" element={<AddProduct addProduct={addProduct} />} />
-              <Route path="produk/detail/:id" element={<DetailProduct />} />
-              <Route path="produk/edit/:id" element={<EditProduct products={products} updateProduct={updateProduct} />} />
-              <Route path="pesanan" element={<PesananAdmin orders={orders} />} />
-              <Route path="pesanan/detail/:id" element={<BookingDetail />} />
-              <Route path="transaksi" element={<TransaksiAdmin />} />
-              <Route path="riwayat" element={<RiwayatAdmin />} />
-              <Route path="pelanggan" element={<PelangganAdmin />} />
-            </Route>
-            <Route path="/*" element={
-              <PrivateRoute>
+            
+            <Route path="/" element={<PrivateRoute />}>
+              <Route element={
                 <div>
                   <Header CartItem={cartItems} />
-                  <Routes>
-                    <Route index element={<Pages products={products} addToCart={addToCart} />} />
-                    <Route path="cart" element={<Cart cartItems={cartItems} addToCart={addToCart} decreaseQty={decreaseQty} removeFromCart={removeFromCart} />} />
-                    <Route path="lacak-pesanan" element={<OrderCart />} />
-                    <Route path="contact" element={<Footer />} />
-                    <Route path="profil" element={<Profil />} />
-                    <Route path="editprofil" element={<EditProfil />} />
-                  </Routes>
+                  <Outlet />
                   <Footer />
                 </div>
-              </PrivateRoute>
-            } />
+              }>
+                <Route index element={<Pages products={products} addToCart={addToCart} />} />
+                <Route path="cart" element={<Cart cartItems={cartItems} addToCart={addToCart} decreaseQty={decreaseQty} removeFromCart={removeFromCart} />} />
+                <Route path="lacak-pesanan" element={<OrderCart />} />
+                <Route path="contact" element={<Footer />} />
+                <Route path="profil" element={<Profil />} />
+                <Route path="editprofil" element={<EditProfil />} />
+              </Route>
+            </Route>
+
+            <Route path="/admin/*" element={<AdminRoute />}>
+              <Route element={<AdminLayout />}>
+                <Route path="beranda" element={<DashboardAdmin />} />
+                <Route path="produk" element={<ProdukAdmin products={products} addProduct={addProduct} updateProduct={updateProduct} deleteProduct={deleteProduct} />} />
+                <Route path="produk/add" element={<AddProduct addProduct={addProduct} />} />
+                <Route path="produk/detail/:id" element={<DetailProduct />} />
+                <Route path="produk/edit/:id" element={<EditProduct products={products} updateProduct={updateProduct} />} />
+                <Route path="pesanan" element={<PesananAdmin orders={orders} />} />
+                <Route path="pesanan/detail/:id" element={<BookingDetail />} />
+                <Route path="transaksi" element={<TransaksiAdmin />} />
+                <Route path="riwayat" element={<RiwayatAdmin />} />
+                <Route path="pelanggan" element={<PelangganAdmin />} />
+              </Route>
+            </Route>
           </Routes>
         </Router>
       </UserProvider>

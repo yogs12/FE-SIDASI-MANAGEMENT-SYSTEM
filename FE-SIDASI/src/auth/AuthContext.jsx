@@ -1,3 +1,4 @@
+// src/auth/AuthContext.jsx
 import React, { createContext, useState, useContext, useEffect } from 'react';
 
 const AuthContext = createContext();
@@ -19,16 +20,13 @@ export const AuthProvider = ({ children }) => {
     }
   }, []);
 
-  const login = ({ id_user, nama, role, token }) => {
-    if (id_user && nama && role && token) {
-      const user = { id_user, nama, role };
-      setAuth({
-        isAuthenticated: true,
-        user,
-      });
-      localStorage.setItem('token', token);
-      localStorage.setItem('user', JSON.stringify(user));
-    }
+  const login = (userData) => {
+    setAuth({
+      isAuthenticated: true,
+      user: userData,
+    });
+    localStorage.setItem('token', userData.token);
+    localStorage.setItem('user', JSON.stringify(userData));
   };
 
   const logout = () => {

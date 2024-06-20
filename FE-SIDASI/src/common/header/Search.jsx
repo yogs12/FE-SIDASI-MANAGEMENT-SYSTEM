@@ -46,7 +46,8 @@ const Search = ({ CartItems }) => {
           </div>
           {auth.isAuthenticated && auth.user && (
             <div className="user-info">
-              <span>{auth.user.nama}{auth.user.role}</span>
+              <span className="user-name">{auth.user.nama}</span>
+              <span className="user-role">({auth.user.role})</span>
             </div>
           )}
           <div className="cart">

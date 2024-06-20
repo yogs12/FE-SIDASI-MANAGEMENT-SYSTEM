@@ -52,11 +52,22 @@
 }
 
 .user-info {
-  font-size: 0.875rem; /* Mengatur ukuran font menjadi lebih kecil */
-  margin-right: 10px; /* Menambahkan margin kanan */
+  font-size: 0.875rem;
+  margin-right: 10px;
   display: flex;
-  align-items: center;
+  flex-direction: column; /* Arrange items in a column */
+  align-items: flex-start; /* Align items to the start of the flex container */
 }
+
+.user-name {
+  font-weight: bold;
+}
+
+.user-role {
+  font-style: italic;
+  color: #666;
+}
+
 
 .icon.f_flex.width {
   display: flex;

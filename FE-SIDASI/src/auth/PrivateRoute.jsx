@@ -1,12 +1,13 @@
+// src/auth/PrivateRoute.jsx
 import React from 'react';
-import { Route, Navigate } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 import { useAuth } from './AuthContext';
 
-const PrivateRoute = ({ element, ...rest }) => {
-  const { user } = useAuth();
+const PrivateRoute = () => {
+  const { auth } = useAuth();
 
-  return user ? (
-    <Route {...rest} element={element} />
+  return auth.isAuthenticated ? (
+    <Outlet />
   ) : (
     <Navigate to="/masuk" />
   );

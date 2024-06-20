@@ -1,3 +1,4 @@
+// src/auth/Login.jsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -18,6 +19,7 @@ const Login = () => {
 
       if (response.data.role && response.data.token) {
         const userData = {
+          id_user: response.data.id_user,
           nama: response.data.nama || 'Unknown User',
           role: response.data.role,
           token: response.data.token
@@ -27,7 +29,7 @@ const Login = () => {
 
         // Redirect based on role
         if (response.data.role === 'admin') {
-          navigate('/admin');  // Redirect admin to admin dashboard
+          navigate('/');  // Redirect admin to admin dashboard
         } else {
           navigate('/');  // Redirect user to main page
         }
@@ -37,7 +39,11 @@ const Login = () => {
       }
       
     } catch (error) {
-      console.error('Error logging in:', error);
+      if (error.response && error.response.status === 401) {
+        console.error('Invalid credentials');
+      } else {
+        console.error('Error logging in:', error);
+      }
       // Handle login error
     }
   };
