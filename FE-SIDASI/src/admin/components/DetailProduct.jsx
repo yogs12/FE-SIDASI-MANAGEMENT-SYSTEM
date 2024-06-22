@@ -23,8 +23,8 @@ const DetailProduct = () => {
       const response = await axios.get(`http://localhost:3000/products/produks/${id}`);
       console.log('Product data:', response.data); // Log the response data
 
-      if (response.data && response.data.data && response.data.data.length > 0) {
-        setProduct(response.data.data[0]);
+      if (response.data && response.data.data) {
+        setProduct(response.data.data);
       } else {
         setProduct(null);
         setError('Data produk tidak ditemukan.');

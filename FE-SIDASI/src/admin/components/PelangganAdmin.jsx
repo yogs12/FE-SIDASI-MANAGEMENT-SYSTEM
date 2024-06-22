@@ -8,35 +8,35 @@ const PelangganAdmin = () => {
   const [customers, setCustomers] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredCustomers, setFilteredCustomers] = useState([]);
- 
+
   useEffect(() => {
     const fetchCustomers = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/profils/profils');
+        const response = await axios.get('http://localhost:3000/auth/user');
         if (response.data && response.data.status) {
           const responseData = response.data.data;
           const customersArray = Array.isArray(responseData) ? responseData : [responseData];
           setCustomers(customersArray);
-          setFilteredCustomers(customersArray);
+          setFilteredCustomers(customersArray); // Initialize filteredCustomers with valid data
         } else {
           console.error('Error fetching customers: Data received is not in the expected format');
-          console.log(response.data); // Tambahkan log untuk melihat respons yang diterima
+          console.log(response.data); // Log response to see what is received
         }
       } catch (error) {
         console.error('Error fetching customers:', error);
-        console.log(error.response.data); // Tambahkan log untuk melihat pesan kesalahan dari server
+        console.log(error.response.data); // Log error message from server
       }
     };
-  
+
     fetchCustomers();
   }, []);
-  
+
   const handleDeleteCustomer = async (id) => {
     try {
-      await axios.delete(`http://localhost:3000/profils/profils/${id}`);
-      // Hapus pelanggan dari state setelah berhasil dihapus di backend
-      setCustomers(customers.filter(customer => customer.id_profil !== id));
-      setFilteredCustomers(filteredCustomers.filter(customer => customer.id_profil !== id));
+      await axios.delete(`http://localhost:3000/auth/user/${id}`);
+      // Remove customer from state after successful deletion
+      setCustomers(customers.filter(customer => customer.id_user !== id));
+      setFilteredCustomers(filteredCustomers.filter(customer => customer.id_user !== id));
     } catch (error) {
       console.error('Error deleting customer:', error);
     }
@@ -52,7 +52,7 @@ const PelangganAdmin = () => {
 
   return (
     <div>
-      <h1>Pelanggan </h1>
+      <h1>Pelanggan</h1>
       <div className="search-add-container">
         <TextField
           className="search-input"
@@ -70,7 +70,7 @@ const PelangganAdmin = () => {
           <TableHead>
             <TableRow>
               <TableCell>No</TableCell>
-              <TableCell>Id Pelanggan</TableCell>
+              <TableCell>Id Pengguna</TableCell>
               <TableCell>Foto</TableCell>
               <TableCell>Nama Pengguna</TableCell>
               <TableCell>Nomor Handphone</TableCell>
@@ -80,7 +80,7 @@ const PelangganAdmin = () => {
           </TableHead>
           <TableBody>
             {filteredCustomers.map((customer, index) => (
-              <TableRow key={customer.id_profil}>
+              <TableRow key={customer.id_user}>
                 <TableCell>{index + 1}</TableCell>
                 <TableCell>{customer.id_user}</TableCell>
                 <TableCell>
@@ -93,7 +93,7 @@ const PelangganAdmin = () => {
                   <IconButton aria-label="view" style={{ marginRight: '5px' }}>
                     <FontAwesomeIcon icon={faEye} />
                   </IconButton>
-                  <IconButton aria-label="delete" onClick={() => handleDeleteCustomer(customer.id_profil)}>
+                  <IconButton aria-label="delete" onClick={() => handleDeleteCustomer(customer.id_user)}>
                     <FontAwesomeIcon icon={faTrash} />
                   </IconButton>
                 </TableCell>

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import './Profil.css';
 
 function Profil() {
-    const [profils, setProfile] = useState(null); // State untuk menyimpan data profil
+    const [profile, setProfile] = useState(null); // State untuk menyimpan data profil
     const [loading, setLoading] = useState(true); // State untuk menangani loading
     const [error, setError] = useState(null); // State untuk menangani error
 
@@ -19,7 +19,7 @@ function Profil() {
         // Fungsi untuk mengambil data profil dari backend
         const fetchProfile = async () => {
             try {
-                const response = await fetch('http://localhost:3000/profils/profils', {
+                const response = await fetch('http://localhost:3000/auth/user', {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }
@@ -30,7 +30,7 @@ function Profil() {
                 }
 
                 const data = await response.json();
-                setProfile(data.data[0]); // Mengambil data profil pertama dari array data
+                setProfile(data); // Mengambil data profil dari respons
                 setLoading(false); // Set loading menjadi false setelah data berhasil dimuat
             } catch (error) {
                 console.error('Error fetching profile:', error);
@@ -57,26 +57,26 @@ function Profil() {
                 <div className="left-box">
                     <img
                         className="profil-photo"
-                        src={profils.foto} // Menggunakan URL foto dari data profil
+                        src={`http://localhost:3000${profile.foto}`} // Menggunakan URL foto dari data profil
                         alt="profile"
                     />
                 </div>
                 <div className="right-box">
                     <div className="detail-item">
                         <label className="labels">Name</label>
-                        <p>{profils.nama}</p> {/* Menampilkan nama dari data profil */}
+                        <p>{profile.nama}</p> {/* Menampilkan nama dari data profil */}
                     </div>
                     <div className="detail-item">
                         <label className="labels">Phone Number</label>
-                        <p>{profils.no_hp}</p> {/* Menampilkan nomor hp dari data profil */}
+                        <p>{profile.no_hp}</p> {/* Menampilkan nomor hp dari data profil */}
                     </div>
                     <div className="detail-item">
                         <label className="labels">Address</label>
-                        <p>{profils.alamat}</p> {/* Menampilkan alamat dari data profil */}
+                        <p>{profile.alamat}</p> {/* Menampilkan alamat dari data profil */}
                     </div>
                     <div className="detail-item">
                         <label className="labels">Email</label>
-                        <p>{profils.email}</p> {/* Menampilkan email dari data profil */}
+                        <p>{profile.email}</p> {/* Menampilkan email dari data profil */}
                     </div>
                     <div className="text-center">
                         <Link to="/editprofil">

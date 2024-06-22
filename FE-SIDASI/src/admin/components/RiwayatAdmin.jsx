@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, Dialog, DialogTitle, DialogContent, DialogActions, Select, MenuItem, IconButton } from '@mui/material';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, Dialog, DialogTitle, DialogContent, DialogActions, IconButton } from '@mui/material';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -44,18 +44,6 @@ const RiwayatAdmin = () => {
     }
   };
 
-  const handleStatusChange = async (event, order) => {
-    const newStatus = event.target.value;
-    try {
-      await axios.put(`http://localhost:3000/riwayats/riwayat/${order.id_riwayat}`, {
-        status: newStatus
-      });
-      setOrders(orders.map((o) => (o.id_riwayat === order.id_riwayat ? { ...o, status: newStatus } : o)));
-    } catch (error) {
-      console.error('Error updating order status:', error);
-    }
-  };
-
   return (
     <div>
       <h1>Riwayat</h1>
@@ -68,7 +56,7 @@ const RiwayatAdmin = () => {
               <TableCell>ID Pengguna</TableCell>
               <TableCell>Nama Pengguna</TableCell>
               <TableCell>Tanggal</TableCell>
-              <TableCell>Status</TableCell>
+              <TableCell>Status Pembayaran</TableCell>
               <TableCell>Validasi</TableCell>
               <TableCell>Detail</TableCell>
               <TableCell>Aksi</TableCell>

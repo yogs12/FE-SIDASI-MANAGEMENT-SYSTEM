@@ -44,7 +44,7 @@ const Sidebar_admin = ({ openSidebarToggle, OpenSidebar }) => {
           </Link>
         </li>
         <li className='nav-item'>
-          <Link  to ="/keluar">
+          <Link  to ="/">
             <i className="fa-solid fa-sign-out-alt"></i> Keluar
           </Link>
         </li>

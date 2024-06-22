@@ -11,10 +11,9 @@ const TransaksiAdmin = () => {
   const [orderToDelete, setOrderToDelete] = useState(null);
 
   useEffect(() => {
-    // Fetch orders from the backend
     const fetchOrders = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/transaksis/transaksi'); // Mengganti URL
+        const response = await axios.get('http://localhost:3000/bookings/bookings'); // Mengganti URL
         setOrders(response.data.data);
       } catch (error) {
         console.error('Error fetching orders:', error);
@@ -36,33 +35,21 @@ const TransaksiAdmin = () => {
 
   const handleDeleteOrder = async () => {
     try {
-      await axios.delete(`http://localhost:3000/transaksis/transaksi/${orderToDelete.id_transaksi}`); // Mengganti URL
-      setOrders(orders.filter((order) => order.id_transaksi !== orderToDelete.id_transaksi));
+      await axios.delete(`http://localhost:3000/bookings/bookings/${orderToDelete.id_booking}`); // Mengganti URL
+      setOrders(orders.filter((order) => order.id_booking !== orderToDelete.id_booking));
       handleDeleteDialogClose();
     } catch (error) {
       console.error('Error deleting order:', error);
     }
   };
 
-  const handleStatusChange = async (event, order) => {
-    const newStatus = event.target.value;
-    try {
-      await axios.put(`http://localhost:3000/transaksis/transaksi/${order.id_transaksi}`, {
-        status_pembayaran: newStatus
-      });
-      setOrders(orders.map((o) => (o.id_transaksi === order.id_transaksi ? { ...o, status_pembayaran: newStatus } : o)));
-    } catch (error) {
-      console.error('Error updating order status:', error);
-    }
-  };
-
   const handleValidationChange = async (event, order) => {
     const newValidationStatus = event.target.value;
     try {
-      await axios.put(`http://localhost:3000/transaksis/transaksi/${order.id_transaksi}`, {
-        status_validasi: newValidationStatus
+      await axios.put(`http://localhost:3000/bookings/bookings/${order.id_booking}`, {
+        validasi: newValidationStatus
       });
-      setOrders(orders.map((o) => (o.id_transaksi === order.id_transaksi ? { ...o, status_validasi: newValidationStatus } : o)));
+      setOrders(orders.map((o) => (o.id_booking === order.id_booking ? { ...o, validasi: newValidationStatus } : o)));
     } catch (error) {
       console.error('Error updating validation status:', error);
     }
@@ -103,13 +90,13 @@ const TransaksiAdmin = () => {
           </TableHead>
           <TableBody>
             {orders.map((order, index) => (
-              <TableRow key={order.id_transaksi}>
+              <TableRow key={order.id_booking}>
                 <TableCell>{index + 1}</TableCell>
-                <TableCell>{order.id_transaksi}</TableCell>
+                <TableCell>{order.id_booking}</TableCell>
                 <TableCell>{order.id_user}</TableCell>
                 <TableCell>{order.nama}</TableCell>
                 <TableCell>{order.tanggal_booking}</TableCell>
-                <TableCell> {order.status_pembayaran} </TableCell>
+                <TableCell>{order.status_pembayaran}</TableCell>
                 <TableCell>
                   <Select
                     value={order.validasi}
@@ -140,7 +127,7 @@ const TransaksiAdmin = () => {
       >
         <DialogTitle>Konfirmasi Hapus Pesanan</DialogTitle>
         <DialogContent>
-          Apakah Anda yakin ingin menghapus pesanan dengan ID {orderToDelete?.id_transaksi}?
+          Apakah Anda yakin ingin menghapus pesanan dengan ID {orderToDelete?.id_booking}?
         </DialogContent>
         <DialogActions>
           <Button onClick={handleDeleteDialogClose} color="primary" variant='contained'>

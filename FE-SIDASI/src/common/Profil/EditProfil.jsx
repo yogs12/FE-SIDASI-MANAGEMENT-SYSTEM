@@ -1,123 +1,186 @@
-import React, { useState, useEffect } from 'react';
-import './Profil.css';
-import axios from 'axios'; // Import axios untuk HTTP requests
+import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+import './profil.css';
 
 function EditProfil() {
-    const [idProfile, setIdProfile] = useState(null); // State untuk menyimpan ID profil yang sedang di-edit
-    const [name, setName] = useState("Babayo");
-    const [phoneNumber, setPhoneNumber] = useState("08156848385");
-    const [address, setAddress] = useState("Jl.Sidasi Simpang Lima");
-    const [email, setEmail] = useState("Sidasi@gmail.com");
-    const [photo, setPhoto] = useState(null); // State untuk menyimpan foto profil
+    const [profile, setProfile] = useState({
+        nama: '',
+        no_hp: '',
+        alamat: '',
+        email: '',
+        foto: ''
+    }); // State untuk menyimpan data profil
+    const [loading, setLoading] = useState(true); // State untuk menangani loading
+    const [error, setError] = useState(null); // State untuk menangani error
+    const fileInputRef = useRef(null); // Ref untuk file input
+    const navigate = useNavigate();
 
     useEffect(() => {
-        // Contoh pengambilan profil dari backend saat komponen dimuat
-        fetchProfile(); // Memanggil fungsi untuk mengambil profil dari backend
-    }, []); // Menggunakan array kosong untuk memastikan efek hanya dijalankan sekali saat komponen dimuat
+        const token = localStorage.getItem('token'); // Ambil token dari localStorage (pastikan sudah disimpan saat login)
 
-    // Fungsi untuk mengambil profil dari backend berdasarkan ID
-    const fetchProfile = async () => {
-        try {
-            const response = await axios.get(`http://localhost:3000/profils/${idProfile}`, {
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem('accessToken')}` // Mengirim token JWT sebagai header Authorization
+        if (!token) {
+            setError('Token not found'); // Handle jika token tidak ditemukan
+            setLoading(false); // Set loading menjadi false karena tidak ada token
+            return;
+        }
+
+        // Fungsi untuk mengambil data profil dari backend
+        const fetchProfile = async () => {
+            try {
+                const response = await fetch('http://localhost:3000/auth/user', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to fetch profile');
                 }
+
+                const data = await response.json();
+                setProfile(data); // Mengambil data profil dari respons
+                setLoading(false); // Set loading menjadi false setelah data berhasil dimuat
+            } catch (error) {
+                console.error('Error fetching profile:', error);
+                setError('Failed to fetch profile');
+                setLoading(false); // Set loading menjadi false jika terjadi error
+            }
+        };
+
+        fetchProfile(); // Panggil fungsi fetchProfile saat komponen Profil dimuat
+    }, []);
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setProfile({
+            ...profile,
+            [name]: value
+        });
+    };
+
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setProfile({
+                ...profile,
+                foto: URL.createObjectURL(file) // Tampilkan pratinjau foto baru
             });
-            const data = response.data.data[0]; // Ambil data profil dari respons
-            setName(data.nama);
-            setPhoneNumber(data.no_hp);
-            setAddress(data.alamat);
-            setEmail(data.email);
-            setPhoto(data.foto); // Set foto profil jika tersedia
-        } catch (error) {
-            console.error('Error fetching profile:', error);
-            // Tambahkan logika untuk menangani kesalahan fetch profil
         }
     };
 
-    // Fungsi untuk menyimpan perubahan profil
-    const saveProfile = async () => {
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const token = localStorage.getItem('token'); // Ambil token dari localStorage
+        const file = fileInputRef.current.files[0]; // Ambil file foto baru
+
+        if (!token) {
+            setError('Token not found');
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append('nama', profile.nama);
+        formData.append('no_hp', profile.no_hp);
+        formData.append('alamat', profile.alamat);
+        formData.append('email', profile.email);
+        if (file) {
+            formData.append('foto', file); // Tambahkan file foto jika ada
+        }
+
         try {
-            const response = await axios.put(`http://localhost:3000/profils/${idProfile}`, {
-                nama: name,
-                no_hp: phoneNumber,
-                alamat: address,
-                email: email,
-                foto: photo // Jika tidak ada perubahan foto, tidak perlu menyertakan dalam body request
-            }, {
+            const response = await fetch('http://localhost:3000/auth/user', {
+                method: 'PUT',
                 headers: {
-                    Authorization: `Bearer ${localStorage.getItem('accessToken')}` // Mengirim token JWT sebagai header Authorization
-                }
+                    'Authorization': `Bearer ${token}`
+                },
+                body: formData
             });
-            console.log('Profile updated:', response.data);
-            // Tambahkan logika untuk menampilkan pesan sukses atau melakukan tindakan setelah profil diperbarui
+
+            if (!response.ok) {
+                throw new Error('Failed to update profile');
+            }
+
+            const data = await response.json();
+            setProfile(data); // Perbarui data profil dengan respons
+            navigate('/Profil'); // Arahkan pengguna kembali ke halaman profil setelah berhasil mengedit
         } catch (error) {
             console.error('Error updating profile:', error);
-            // Tambahkan logika untuk menangani kesalahan update profil
+            setError('Failed to update profile');
         }
     };
+
+    if (loading) {
+        return <p>Loading...</p>; // Tampilkan loading indicator jika data profil sedang dimuat
+    }
+
+    if (error) {
+        return <p>{error}</p>; // Tampilkan pesan error jika terjadi kesalahan saat fetching data
+    }
 
     return (
         <div className='container-fluid'>
             <h4 className="text-left">Edit Profil</h4>
-            <div className="profil-container">
+            <form onSubmit={handleSubmit}>
                 <div className="left-box">
-                    <img 
-                        className="profil-photo" 
-                        src={photo || "https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"} 
-                        alt="profile" 
+                    <img
+                        className="profil-photo"
+                        src={profile.foto && profile.foto.startsWith('http') ? profile.foto : `http://localhost:3000${profile.foto}`} // Menggunakan URL foto dari data profil
+                        alt="profile"
+                        onClick={() => fileInputRef.current.click()} // Klik input file saat gambar diklik
+                    />
+                    <input
+                        type="file"
+                        ref={fileInputRef}
+                        style={{ display: 'none' }}
+                        onChange={handleImageChange}
                     />
                 </div>
                 <div className="right-box">
-                    <div className="detail-item">
+                    <div className="form-group">
                         <label className="labels">Name</label>
-                        <div>
-                            <input 
-                                type="text" 
-                                className="form-control" 
-                                value={name} 
-                                onChange={(e) => setName(e.target.value)} 
-                            />
-                        </div>
+                        <input
+                            type="text"
+                            name="nama"
+                            value={profile.nama}
+                            onChange={handleChange}
+                            className="form-control"
+                        />
                     </div>
-                    <div className="detail-item">
+                    <div className="form-group">
                         <label className="labels">Phone Number</label>
-                        <div>
-                            <input 
-                                type="text" 
-                                className="form-control" 
-                                value={phoneNumber} 
-                                onChange={(e) => setPhoneNumber(e.target.value)} 
-                            />
-                        </div>
+                        <input
+                            type="text"
+                            name="no_hp"
+                            value={profile.no_hp}
+                            onChange={handleChange}
+                            className="form-control"
+                        />
                     </div>
-                    <div className="detail-item">
+                    <div className="form-group">
                         <label className="labels">Address</label>
-                        <div>
-                            <input 
-                                type="text" 
-                                className="form-control" 
-                                value={address} 
-                                onChange={(e) => setAddress(e.target.value)} 
-                            />
-                        </div>
+                        <input
+                            type="text"
+                            name="alamat"
+                            value={profile.alamat}
+                            onChange={handleChange}
+                            className="form-control"
+                        />
                     </div>
-                    <div className="detail-item">
+                    <div className="form-group">
                         <label className="labels">Email</label>
-                        <div>
-                            <input 
-                                type="email" 
-                                className="form-control" 
-                                value={email} 
-                                onChange={(e) => setEmail(e.target.value)} 
-                            />
-                        </div>
+                        <input
+                            type="email"
+                            name="email"
+                            value={profile.email}
+                            onChange={handleChange}
+                            className="form-control"
+                        />
                     </div>
-                    <div className="text-center mt-4">
-                        <button className="btn btn-primary profil-button" type="button" onClick={saveProfile}>Simpan</button>
+                    <div className="text-center">
+                        <button className="btn btn-primary profil-button" type="submit">Save Changes</button>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
     );
 }
