@@ -32,7 +32,6 @@ const UserProvider = ({ children }) => {
     };
 
     fetchUser(); // Call fetchUser on component mount
-
   }, []); // Empty dependency array ensures this effect runs once
 
   return (

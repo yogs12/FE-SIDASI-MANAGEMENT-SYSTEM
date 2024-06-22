@@ -33,23 +33,22 @@ const Cart = ({ cartItems, addToCart, decreaseQty, removeFromCart }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const formData = new FormData();
-
-    if (!user || !user.id) {
+    
+    if (!user || !user.id_user) {
       alert("User not logged in");
       return;
     }
 
-    formData.append('id_user', user.id); // Use actual user ID from context
+    const formData = new FormData();
+    formData.append('id_user', user.id_user); // Use actual user ID from context
     formData.append('tanggal_booking', new Date().toISOString().slice(0, 10));
     formData.append('status_pembayaran', 'Pending');
 
-    cartItems.forEach(item => {
-      formData.append('products[]', JSON.stringify({
-        id_produk: item.id_produk,
-        quantity: item.qty
-      }));
-    });
+    const productsData = cartItems.map(item => ({
+      id_produk: item.id_produk,
+      quantity: item.qty
+    }));
+    formData.append('products', JSON.stringify(productsData));
 
     const screenshot = event.target.elements.screenshot.files[0];
     if (screenshot) {
