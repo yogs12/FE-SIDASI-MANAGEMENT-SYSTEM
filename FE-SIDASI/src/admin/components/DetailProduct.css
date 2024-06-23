@@ -29,25 +29,25 @@
   border-radius: 5px;
 }
 
-.product-details {
+.product-detailsadmin {
   display: flex;
   justify-content: space-between;
   width: 100%;
 }
 
-.product-details .left {
+.product-detailsadmin .left {
   display: flex;
   flex-direction: column;
   width:150px; /* Adjust the width of the left section */
 }
 
-.product-details .right {
+.product-detailsadmin .right {
   display: flex;
   flex-direction: column;
   margin-right: 180px; /* Adjust the margin to move closer to the left */
 }
 
-.product-details h3 {
+.product-detailsadmin h3 {
   margin: 10px 0 5px; /* Adjust margin to be closer to the p element */
 }
 

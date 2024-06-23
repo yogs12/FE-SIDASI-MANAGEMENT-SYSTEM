@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, forwardRef } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
+import { Button, Paper } from '@mui/material';
+import { useReactToPrint } from 'react-to-print';
+import './BookingDetail.css';
 
 const BookingDetail = () => {
   const { id } = useParams();
@@ -23,30 +25,73 @@ const BookingDetail = () => {
   return (
     <div>
       <h1>Detail Pesanan</h1>
-      <TableContainer component={Paper}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>ID Booking</TableCell>
-              <TableCell>Nama Pengguna</TableCell>
-              <TableCell>ID Produk</TableCell>
-              <TableCell>Nama Produk</TableCell>
-              <TableCell>Jumlah</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
+      <PrintBookingDetail bookingDetails={bookingDetails} />
+    </div>
+  );
+};
+
+const BookingReceipt = forwardRef((props, ref) => {
+  const { bookingDetails } = props;
+
+  const calculateTotalPrice = () => {
+    return bookingDetails.reduce((total, detail) => total + detail.quantity * detail.harga, 0);
+  };
+
+  return (
+    <div ref={ref} style={{ padding: '20px', maxWidth: '600px', margin: '0 auto' }}>
+      <Paper style={{ padding: '20px' }}>
+        <h2>Struk Pembelian</h2>
+        <div>ID Booking: {bookingDetails[0]?.id_booking}</div>
+        <div>Nama Pemesan: {bookingDetails[0]?.nama_pengguna}</div>
+        <div>Tanggal Booking: {new Date(bookingDetails[0]?.tanggal_booking).toLocaleDateString()}</div>
+        <table style={{ width: '100%', marginTop: '20px', borderCollapse: 'collapse' }}>
+          <thead>
+            <tr>
+              <th>ID Produk</th>
+              <th>Nama Produk</th>
+              <th>Jumlah</th>
+              <th>Satuan</th>
+              <th>Harga</th>
+            </tr>
+          </thead>
+          <tbody>
             {bookingDetails.map((detail) => (
-              <TableRow key={detail.id_produk}>
-                <TableCell>{detail.id_booking}</TableCell>
-                <TableCell>{detail.nama_user}</TableCell>
-                <TableCell>{detail.id_produk}</TableCell>
-                <TableCell>{detail.nama_produk}</TableCell>
-                <TableCell>{detail.quantity}</TableCell>
-              </TableRow>
+              <tr key={detail.id_produk}>
+                <td>{detail.id_produk}</td>
+                <td>{detail.nama_produk}</td>
+                <td>{detail.quantity}</td>
+                <td>{detail.satuan}</td>
+                <td>Rp.{detail.harga}</td>
+              </tr>
             ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+          </tbody>
+        </table>
+        <div style={{ marginTop: '20px', fontWeight: 'bold' }}>
+          Total Harga: Rp.{calculateTotalPrice()}.00
+        </div>
+        <div style={{ marginTop: '20px', textAlign: 'center', fontWeight: 'bold' }}>
+          Terimakasih Telah Berlangganan Di Tempat Kami
+          <br />
+          ------------Semoga anda berbahagia-----------
+        </div>
+      </Paper>
+    </div>
+  );
+});
+
+const PrintBookingDetail = ({ bookingDetails }) => {
+  const componentRef = React.useRef();
+
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  });
+
+  return (
+    <div>
+      <BookingReceipt ref={componentRef} bookingDetails={bookingDetails} />
+      <Button variant="contained" color="primary" onClick={handlePrint} style={{ marginTop: '20px' }}>
+        Print PDF
+      </Button>
     </div>
   );
 };
