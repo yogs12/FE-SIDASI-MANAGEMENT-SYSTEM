@@ -7,15 +7,16 @@
 
 .detail-product {
   padding: 20px;
+  padding-bottom: 50px;
   background-color: white;
   border-radius: 10px;
-  width: 600px;
+  width: 900px;
   box-shadow: 0 8px 8px rgba(0, 0, 0, 0.1); /* Added shadow for better visibility */
 }
 
 .product-name {
   font-size: 2em;
-  margin-bottom: 10px;
+  margin-bottom: 30px;
 }
 
 .product-info {
@@ -24,14 +25,37 @@
 
 .product-image {
   max-width: 300px;
-  margin-right: 20px;
+  margin-right: 50px;
+  border-radius: 5px;
 }
 
 .product-details {
   display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.product-details .left {
+  display: flex;
   flex-direction: column;
+  width:150px; /* Adjust the width of the left section */
+}
+
+.product-details .right {
+  display: flex;
+  flex-direction: column;
+  margin-right: 180px; /* Adjust the margin to move closer to the left */
+}
+
+.product-details h3 {
+  margin: 10px 0 5px; /* Adjust margin to be closer to the p element */
 }
 
 .product-details p {
-  margin: 5px 0;
+  margin: 0 0 15px; /* Adjust margin to be closer to the h3 element */
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: white;
+  width: 150px; /* Ensure p elements take full width of their container */
 }
