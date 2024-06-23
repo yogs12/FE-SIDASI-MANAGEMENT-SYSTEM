@@ -8,7 +8,6 @@
     border-radius: 10px;
     background-color: #ffffff;
     box-shadow: 0 8px 8px rgba(0, 0, 0, 0.1); /* Added shadow */
-
 }
 
 .left-box {
@@ -28,22 +27,45 @@
     width: 150px;
     height: 150px;
     border-radius: 50%;
+    cursor: pointer; /* Add cursor pointer to indicate clickability */
 }
 
 .text-center {
     text-align: center;
 }
 
-.labels {
-    font-weight: bold;
+.text-left {
+    margin-top: 20px;
+    margin-left: 20px;
+    font-size: larger;
 }
 
-.detail-item {
+.labels {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.detail-item,
+.form-group {
     margin-bottom: 15px;
+}
+
+.detail-input,
+.form-control {
+    width: 510px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
 }
 
 .profil-button {
     width: 100%;
-    max-width: 200px;
-    background-color: #0f3460;;
+    max-width: 150px;
+    height: 50px;
+    background-color: #0f3460;
+    border-radius: 5px;
+    color:white;
 }

@@ -120,7 +120,7 @@ function EditProfil() {
     return (
         <div className='container-fluid'>
             <h4 className="text-left">Edit Profil</h4>
-            <form onSubmit={handleSubmit}>
+            <div className="profil-container">
                 <div className="left-box">
                     <img
                         className="profil-photo"
@@ -136,51 +136,53 @@ function EditProfil() {
                     />
                 </div>
                 <div className="right-box">
-                    <div className="form-group">
-                        <label className="labels">Name</label>
-                        <input
-                            type="text"
-                            name="nama"
-                            value={profile.nama}
-                            onChange={handleChange}
-                            className="form-control"
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label className="labels">Phone Number</label>
-                        <input
-                            type="text"
-                            name="no_hp"
-                            value={profile.no_hp}
-                            onChange={handleChange}
-                            className="form-control"
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label className="labels">Address</label>
-                        <input
-                            type="text"
-                            name="alamat"
-                            value={profile.alamat}
-                            onChange={handleChange}
-                            className="form-control"
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label className="labels">Email</label>
-                        <input
-                            type="email"
-                            name="email"
-                            value={profile.email}
-                            onChange={handleChange}
-                            className="form-control"
-                        />
-                    </div>
-                    <div className="text-center">
-                        <button className="btn btn-primary profil-button" type="submit">Save Changes</button>
-                    </div>
+                    <form onSubmit={handleSubmit}>
+                        <div className="form-group">
+                            <label className="labels">Nama Pengguna</label>
+                            <input
+                                type="text"
+                                name="nama"
+                                value={profile.nama}
+                                onChange={handleChange}
+                                className="form-control detail-input"
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label className="labels">Phone Number</label>
+                            <input
+                                type="text"
+                                name="no_hp"
+                                value={profile.no_hp}
+                                onChange={handleChange}
+                                className="form-control detail-input"
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label className="labels">Address</label>
+                            <input
+                                type="text"
+                                name="alamat"
+                                value={profile.alamat}
+                                onChange={handleChange}
+                                className="form-control detail-input"
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label className="labels">Email</label>
+                            <input
+                                type="email"
+                                name="email"
+                                value={profile.email}
+                                onChange={handleChange}
+                                className="form-control detail-input"
+                            />
+                        </div>
+                        <div className="text-center">
+                            <button className="profil-button" type="submit">Save Changes</button>
+                        </div>
+                    </form>
                 </div>
-            </form>
+            </div>
         </div>
     );
 }

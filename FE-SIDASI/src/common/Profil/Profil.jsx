@@ -63,24 +63,20 @@ function Profil() {
                 </div>
                 <div className="right-box">
                     <div className="detail-item">
-                        <label className="labels">Name</label>
-                        <p>{profile.nama}</p> {/* Menampilkan nama dari data profil */}
-                    </div>
-                    <div className="detail-item">
-                        <label className="labels">Phone Number</label>
-                        <p>{profile.no_hp}</p> {/* Menampilkan nomor hp dari data profil */}
-                    </div>
-                    <div className="detail-item">
-                        <label className="labels">Address</label>
-                        <p>{profile.alamat}</p> {/* Menampilkan alamat dari data profil */}
+                        <label className="labels">Nama Pengguna</label>
+                        <input className="detail-input" type="text" value={profile.nama} readOnly />
                     </div>
                     <div className="detail-item">
                         <label className="labels">Email</label>
-                        <p>{profile.email}</p> {/* Menampilkan email dari data profil */}
+                        <input className="detail-input" type="text" value={profile.email} readOnly />
+                    </div>
+                    <div className="detail-item">
+                        <label className="labels">Alamat</label>
+                        <input className="detail-input" type="text" value={profile.alamat} readOnly />
                     </div>
                     <div className="text-center">
                         <Link to="/editprofil">
-                            <button className="btn btn-primary profil-button" type="button">Edit Profil</button>
+                            <button className=" profil-button" type="button">Edit Profil</button>
                         </Link>
                     </div>
                 </div>

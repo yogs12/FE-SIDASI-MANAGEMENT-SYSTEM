@@ -38,28 +38,30 @@ const DetailProduct = () => {
   };
 
   if (loading) {
-    return <div className="detail-product">Loading...</div>;
+    return <div className="container"><div className="detail-product">Loading...</div></div>;
   }
 
   if (error) {
-    return <div className="detail-product">{error}</div>;
+    return <div className="container"><div className="detail-product">{error}</div></div>;
   }
 
   if (!product) {
-    return <div className="detail-product">Produk tidak ditemukan</div>;
+    return <div className="container"><div className="detail-product">Produk tidak ditemukan</div></div>;
   }
 
   return (
-    <div className="detail-product">
-      <h1 className="product-name">{product.nama_produk}</h1>
-      <div className="product-info">
-        <img className="product-image" src={`http://localhost:3000${product.foto_produk}`} alt={product.nama_produk} />
-        <div className="product-details">
-          <p><strong>Kategori:</strong> {product.kategori}</p>
-          <p><strong>Harga:</strong> Rp.{product.harga}</p>
-          <p><strong>Stok:</strong> {product.stok}</p>
-          <p><strong>Satuan:</strong> {product.satuan}</p>
-          <p><strong>Status:</strong> {product.status}</p>
+    <div className="detail_container">
+      <div className="detail-product">
+        <h1 className="product-name">{product.nama_produk}</h1>
+        <div className="product-info">
+          <img className="product-image" src={`http://localhost:3000${product.foto_produk}`} alt={product.nama_produk} />
+          <div className="product-details">
+            <p><strong>Kategori:</strong> {product.kategori}</p>
+            <p><strong>Harga:</strong> Rp.{product.harga}</p>
+            <p><strong>Stok:</strong> {product.stok}</p>
+            <p><strong>Satuan:</strong> {product.satuan}</p>
+            <p><strong>Status:</strong> {product.status}</p>
+          </div>
         </div>
       </div>
     </div>

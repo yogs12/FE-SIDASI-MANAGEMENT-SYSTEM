@@ -6,9 +6,9 @@ const Footer = () => {
     <footer>
       <div className='container grid2'>
         <div className='box'>
-          <h1>Sidasi</h1>
+          <h1>S I D A S I</h1>
           <div>
-          <img src="./images/Group.png" alt="" />
+          <img src="./images/Vector.png" alt="" />
           </div>
         </div>
         <div className="box"></div>

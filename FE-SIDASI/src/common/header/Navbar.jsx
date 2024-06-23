@@ -23,9 +23,6 @@ const Navbar = () => {
             <li>
               <Link to="/lacak-pesanan">Lacak Pesanan</Link>
             </li>
-            <li>
-              <Link to="/contact">Kontak</Link>
-            </li>
             {auth.user && auth.user.role === 'admin' && (
               <li>
                 <Link to="/admin/beranda">Admin</Link>
