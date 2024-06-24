@@ -1,85 +1,99 @@
+// OrderCart.jsx
 import React, { useState, useEffect } from "react";
-import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import { useAuth } from '../../auth/AuthContext'; // Import your authentication context
+import "./OrderCart.css";
 
 function OrderCart() {
-  const { id_booking } = useParams();
-  const [bookingDetails, setBookingDetails] = useState(null);
-  const [status, setStatus] = useState('');
-  const [loading, setLoading] = useState(true); // Awalnya true untuk menunjukkan bahwa sedang loading
+  const { auth } = useAuth(); // Get authenticated user from context
+  const { user } = auth;
+  const [bookingDetails, setBookingDetails] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
   useEffect(() => {
     const fetchBookingDetails = async () => {
       try {
-        if (!id_booking) {
-          throw new Error("No ID provided in URL");
+        if (!user || !user.id_user) {
+          throw new Error("User ID not found");
         }
 
-        console.log(`Fetching booking details for ID: ${id_booking}`);
-        const response = await axios.get(`http://localhost:3000/bookings/bookings/${id_booking}`);
-        const bookingData = response.data.data[0]; // Adjust this according to your API response structure
-        if (!bookingData) {
-          throw new Error(`Booking details not found for ID: ${id_booking}`);
+        const id_user = user.id_user;
+
+        console.log(`Fetching booking details for user ID: ${id_user}`);
+        const response = await axios.get('http://localhost:3000/bookings/bookings', {
+          headers: {
+            'id_user': id_user,
+          },
+        });
+        const bookingsData = response.data.data || [];
+
+        if (bookingsData.length === 0) {
+          throw new Error(`No booking details found for user ID: ${id_user}`);
         }
-        setBookingDetails(bookingData);
-        setStatus(bookingData.status_pembayaran || '');
+
+        setBookingDetails(bookingsData);
       } catch (error) {
-        setError(error.message);
+        setError(error.message); // Set error message to display
         console.error('Error fetching booking details:', error.message);
       } finally {
-        setLoading(false); // Mengubah loading menjadi false saat selesai fetching atau terjadi kesalahan
+        setLoading(false);
       }
     };
 
-    if (id_booking) {
+    if (user && user.id_user) {
       fetchBookingDetails();
     } else {
-      setLoading(false); // Menghentikan loading jika tidak ada id_booking
+      setLoading(false);
     }
-  }, [id_booking]);
+  }, [user]); // Pastikan useEffect bergantung pada user
 
   if (loading) {
     return <div>Loading...</div>;
   }
 
   if (error) {
-    return <div>{error}</div>;
+    return <div>{error}</div>; // Tampilkan pesan error langsung
   }
 
-  if (!bookingDetails) {
-    return <div>No booking details found for ID: {id_booking}</div>;
+  if (bookingDetails.length === 0) {
+    return <div>No booking details found for user ID: {user && user.id_user ? user.id_user : 'Unknown'}</div>; // Tampilkan ID pengguna jika tersedia, jika tidak, tampilkan 'Unknown'
   }
 
   return (
-    <div className="order-tracking">
-      <div className="order-progress">
-        <div className="order-info">
-          <h2>Lacak Pesanan</h2>
-          <p>Order ID <strong>{bookingDetails.id_booking}</strong></p>
-          <p>Placed On <strong>{new Date(bookingDetails.tanggal_booking).toLocaleDateString()}</strong></p>
-        </div>
-        <div className="progress-container">
-          <div className="progress">
-            <div className={`circle ${status === 'Proses' ? 'red' : ''}`}>Proses</div>
-            <span className="line"></span>
-            <div className={`circle ${status === 'Dikemas' ? 'orange' : ''}`}>Dikemas</div>
-            <span className="line"></span>
-            <div className={`circle ${status === 'Selesai' ? 'green' : ''}`}>Selesai</div>
+    <div>
+      {bookingDetails.map((booking) => (
+        <div key={booking.id_booking} className="order-tracking">
+          <div className="order-progress">
+            <div className="order-info">
+              <h2>Lacak Pesanan</h2>
+              <p>ID Pesanan <strong>{booking.id_booking}</strong></p>
+              <p>Tanggal Pesanan <strong>{new Date(booking.tanggal_booking).toLocaleDateString()}</strong></p>
+              <p>Nama Pemesan <strong>{booking.nama}</strong></p>
+            </div>
+            <div className="progress-container">
+              <div className="progress">
+                <div className={`circle ${booking.status_pembayaran === 'Proses' ? 'red' : ''}`}>Proses</div>
+                <span className="line"></span>
+                <div className={`circle ${booking.status_pembayaran === 'Dikemas' ? 'orange' : ''}`}>Dikemas</div>
+                <span className="line"></span>
+                <div className={`circle ${booking.status_pembayaran === 'Selesai' ? 'green' : ''}`}>Selesai</div>
+              </div>
+              <div className="progress-labels">
+                <div>Proses</div>
+                <div>Dikemas</div>
+                <div>Selesai</div>
+              </div>
+            </div>
           </div>
-          <div className="progress-labels">
-            <div>Proses</div>
-            <div>Dikemas</div>
-            <div>Selesai</div>
+          <div className="process-info">
+            <h3>Informasi Proses</h3>
+            <p><span className={`circle ${booking.status_pembayaran === 'Proses' ? 'red' : ''}`}></span> Pesanan anda sedang kami proses</p>
+            <p><span className={`circle ${booking.status_pembayaran === 'Dikemas' ? 'orange' : ''}`}></span> Pesanan anda sedang dikemas</p>
+            <p><span className={`circle ${booking.status_pembayaran === 'Selesai' ? 'green' : ''}`}></span> Pesanan sudah selesai dan Ambil Pesanan ke Toko Kami</p>
           </div>
         </div>
-      </div>
-      <div className="process-info">
-        <h3>Informasi Proses</h3>
-        <p><span className="circle red"></span> Pesanan anda sedang kami proses</p>
-        <p><span className="circle orange"></span> Pesanan anda sedang dikemas</p>
-        <p><span className="circle green"></span> Pesanan sudah selesai</p>
-      </div>
+      ))}
     </div>
   );
 }

@@ -12,12 +12,15 @@ const PelangganAdmin = () => {
   useEffect(() => {
     const fetchCustomers = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/auth/user');
-        if (response.data && response.data.status) {
-          const responseData = response.data.data;
-          const customersArray = Array.isArray(responseData) ? responseData : [responseData];
-          setCustomers(customersArray);
-          setFilteredCustomers(customersArray); // Initialize filteredCustomers with valid data
+        const token = localStorage.getItem('token'); // Assume the token is stored in local storage
+        const response = await axios.get('http://localhost:3000/auth/users', {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+        if (response.data) {
+          setCustomers(response.data);
+          setFilteredCustomers(response.data); // Initialize filteredCustomers with valid data
         } else {
           console.error('Error fetching customers: Data received is not in the expected format');
           console.log(response.data); // Log response to see what is received
@@ -33,7 +36,12 @@ const PelangganAdmin = () => {
 
   const handleDeleteCustomer = async (id) => {
     try {
-      await axios.delete(`http://localhost:3000/auth/user/${id}`);
+      const token = localStorage.getItem('token'); // Assume the token is stored in local storage
+      await axios.delete(`http://localhost:3000/auth/users/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
       // Remove customer from state after successful deletion
       setCustomers(customers.filter(customer => customer.id_user !== id));
       setFilteredCustomers(filteredCustomers.filter(customer => customer.id_user !== id));
@@ -84,7 +92,7 @@ const PelangganAdmin = () => {
                 <TableCell>{index + 1}</TableCell>
                 <TableCell>{customer.id_user}</TableCell>
                 <TableCell>
-                  <img src={`http://localhost:3000${customer.foto}`} alt={customer.foto} style={{ width: '50px', height: '50px', borderRadius: '50%' }} />
+                  <img src={`http://localhost:3000${customer.foto}`} alt={customer.nama} style={{ width: '50px', height: '50px', borderRadius: '50%' }} />
                 </TableCell>
                 <TableCell>{customer.nama}</TableCell>
                 <TableCell>{customer.no_hp}</TableCell>
