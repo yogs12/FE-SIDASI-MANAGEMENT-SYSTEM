@@ -73,11 +73,11 @@ function OrderCart() {
             </div>
             <div className="progress-container">
               <div className="progress">
-                <div className={`circle ${booking.status_pembayaran === 'Proses' ? 'red' : ''}`}>Proses</div>
+                <div className={`circle ${booking.status_pembayaran === 'Proses' ? 'red' : ''}`}></div>
                 <span className="line"></span>
-                <div className={`circle ${booking.status_pembayaran === 'Dikemas' ? 'orange' : ''}`}>Dikemas</div>
+                <div className={`circle ${booking.status_pembayaran === 'Dikemas' ? 'orange' : ''}`}></div>
                 <span className="line"></span>
-                <div className={`circle ${booking.status_pembayaran === 'Selesai' ? 'green' : ''}`}>Selesai</div>
+                <div className={`circle ${booking.status_pembayaran === 'Selesai' ? 'green' : ''}`}></div>
               </div>
               <div className="progress-labels">
                 <div>Proses</div>
@@ -87,11 +87,12 @@ function OrderCart() {
             </div>
           </div>
           <div className="process-info">
-            <h3>Informasi Proses</h3>
-            <p><span className={`circle ${booking.status_pembayaran === 'Proses' ? 'red' : ''}`}></span> Pesanan anda sedang kami proses</p>
-            <p><span className={`circle ${booking.status_pembayaran === 'Dikemas' ? 'orange' : ''}`}></span> Pesanan anda sedang dikemas</p>
-            <p><span className={`circle ${booking.status_pembayaran === 'Selesai' ? 'green' : ''}`}></span> Pesanan sudah selesai dan Ambil Pesanan ke Toko Kami</p>
-          </div>
+  <h3>Informasi Proses</h3>
+  <p><span className="circle red"></span> Pesanan anda sedang kami proses</p>
+  <p><span className="circle orange"></span> Pesanan anda sedang dikemas</p>
+  <p><span className="circle green"></span> Pesanan sudah selesai dan Ambil Pesanan ke Toko Kami</p>
+</div>
+
         </div>
       ))}
     </div>

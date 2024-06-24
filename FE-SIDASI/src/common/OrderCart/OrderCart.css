@@ -34,8 +34,8 @@
 }
 
 .circle {
-  width: 70px;
-  height: 70px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -80,6 +80,22 @@
 
 .process-info .circle {
   display: inline-block;
+  width: 40px; /* Tentukan ukuran yang sesuai */
+  height: 40px; /* Tentukan ukuran yang sesuai */
+  border-radius: 50%;
   margin-right: 10px;
   vertical-align: middle;
 }
+
+.process-info .circle.red {
+  background-color: #d9534f;
+}
+
+.process-info .circle.orange {
+  background-color: #f0ad4e;
+}
+
+.process-info .circle.green {
+  background-color: #5cb85c;
+}
+
