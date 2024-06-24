@@ -55,7 +55,7 @@ const DetailProduct = () => {
         <h1 className="product-name">{product.nama_produk}</h1>
         <div className="product-info">
           <img className="product-image" src={`http://localhost:3000${product.foto_produk}`} alt={product.nama_produk} />
-          <div className="product-details">
+          <div className="product-detailsadmin">
             <div className="left">
               <h3><strong>Kategori:</strong></h3><p>{product.kategori}</p>
               <h3><strong>Harga:</strong></h3><p>Rp.{product.harga}</p>

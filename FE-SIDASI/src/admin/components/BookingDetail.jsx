@@ -38,34 +38,36 @@ const BookingReceipt = forwardRef((props, ref) => {
   };
 
   return (
-    <div ref={ref} style={{ padding: '20px', maxWidth: '600px', margin: '0 auto' }}>
+    <div ref={ref} className="receipt" style={{ padding: '20px', maxWidth: '600px', margin: '0 auto' }}>
       <Paper style={{ padding: '20px' }}>
         <h2>Struk Pembelian</h2>
         <div>ID Booking: {bookingDetails[0]?.id_booking}</div>
         <div>Nama Pemesan: {bookingDetails[0]?.nama_pengguna}</div>
         <div>Tanggal Booking: {new Date(bookingDetails[0]?.tanggal_booking).toLocaleDateString()}</div>
-        <table style={{ width: '100%', marginTop: '20px', borderCollapse: 'collapse' }}>
-          <thead>
-            <tr>
-              <th>ID Produk</th>
-              <th>Nama Produk</th>
-              <th>Jumlah</th>
-              <th>Satuan</th>
-              <th>Harga</th>
-            </tr>
-          </thead>
-          <tbody>
-            {bookingDetails.map((detail) => (
-              <tr key={detail.id_produk}>
-                <td>{detail.id_produk}</td>
-                <td>{detail.nama_produk}</td>
-                <td>{detail.quantity}</td>
-                <td>{detail.satuan}</td>
-                <td>Rp.{detail.harga}</td>
+        <div className='bookingdetail'>
+          <table style={{ width: '100%', marginTop: '20px', borderCollapse: 'collapse' }}>
+            <thead>
+              <tr>
+                <th>ID Produk</th>
+                <th>Nama Produk</th>
+                <th>Jumlah</th>
+                <th>Satuan</th>
+                <th>Harga</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {bookingDetails.map((detail) => (
+                <tr key={detail.id_produk}>
+                  <td>{detail.id_produk}</td>
+                  <td>{detail.nama_produk}</td>
+                  <td>{detail.quantity}</td>
+                  <td>{detail.satuan}</td>
+                  <td>Rp.{detail.harga}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
         <div style={{ marginTop: '20px', fontWeight: 'bold' }}>
           Total Harga: Rp.{calculateTotalPrice()}.00
         </div>
@@ -87,11 +89,13 @@ const PrintBookingDetail = ({ bookingDetails }) => {
   });
 
   return (
-    <div>
+    <div className="receipt-container">
       <BookingReceipt ref={componentRef} bookingDetails={bookingDetails} />
-      <Button variant="contained" color="primary" onClick={handlePrint} style={{ marginTop: '20px' }}>
-        Print PDF
-      </Button>
+      <div className="print-button">
+        <Button variant="contained" color="primary" onClick={handlePrint}>
+          Print PDF
+        </Button>
+      </div>
     </div>
   );
 };
