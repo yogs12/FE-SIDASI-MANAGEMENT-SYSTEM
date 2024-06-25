@@ -1,5 +1,5 @@
 import React from 'react';
-import './Dashboard_admin.css';
+import './dashboard_admin.css';
 import dashboardImage from '/images/dashboard.png'; // Sesuaikan path ke gambar
 
 const Dashboard_admin = () => {
