@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './profil.css';
+import './Profil.css';
 
 function EditProfil() {
     const [profile, setProfile] = useState({
