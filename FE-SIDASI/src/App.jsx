@@ -25,7 +25,7 @@ import BookingDetail from './admin/components/BookingDetail';
 import Login from './auth/Login';
 import Register from './auth/Register';
 import { AuthProvider } from './auth/AuthContext';
-import { UserProvider } from './auth/UserContext';
+import { UserProvider } from './auth/userContext';
 import AdminRoute from './auth/AdminRoute';
 import PrivateRoute from './auth/PrivateRoute';
 import Footer from './common/footer/Footer';

@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import "./style.css";
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
-import { UserContext } from '../../auth/UserContext'; // Ensure this path is correct
+import { UserContext } from '../../auth/userContext'; // Ensure this path is correct
 
 const Cart = ({ cartItems, addToCart, decreaseQty, removeFromCart }) => {
   const [products, setProducts] = useState([]);
